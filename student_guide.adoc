@@ -8,9 +8,9 @@ Vinay Upadhya (@vinayu) +
 Sr. Field Engineer - Pivotal +
 vupadhya@pivotal.io
 
-Jonathan Fullam (@jfullam) +
-Sr. Field Engineering Manager - Pivotal +
-jfullam@pivotal.io
+Cora Iberkleid (@ciberkleid) +
+Sr. Field Engineering - Pivotal +
+ciberkleid@pivotal.io
 
 == Schedule
 
@@ -19,14 +19,14 @@ This is _loose_ schedule for the two days. We will adjust as necessary based on 
 The lectures for this class are intentionally very light and are only intended to set the stage for the hands-on labs.
 The overwhelming majority of our time will be spent engaging with the technology directly!
 
-NOTE: We will be updating the course materials throughout the class. You will need to have the materials cloned and track the `adp` branch.
+NOTE: We will be updating the course materials throughout the class. You will need to have the materials cloned and track the `tiaa` branch.
 
 This can be accomplished as follows:
 
 ----
 $ git clone https://github.com/vinayu/CloudNativeArchitectureClass
 $ git fetch --all
-$ git checkout adp
+$ git checkout tiaa
 ----
 
 === Day One
