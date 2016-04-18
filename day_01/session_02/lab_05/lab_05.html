@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.2">
-<title>Lab 5 - From Zero to Pushing Your First Application</title>
+<title>Lab 7 - Scaling Applications</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -411,196 +411,111 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Lab 5 - From Zero to Pushing Your First Application</h1>
+<h1>Lab 7 - Scaling Applications</h1>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_setup">Setup</h2>
+<div id="preamble">
 <div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If you are on a network that requires a proxy, set the proxy as an environment variable:</p>
-<div class="listingblock">
-<div class="content">
-<pre>export HTTP_PROXY={HTTP_PROXY}</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Set the API target for the CLI:</p>
-<div class="listingblock">
-<div class="content">
-<pre>$ cf api {CF-API-URL} --skip-ssl-validation</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Your username will be first initial + lastname. Password will be provided in the class.</p>
-</li>
-<li>
-<p>Follow the steps above for login.</p>
-</li>
-<li>
-<p>Create your own space and target that space:</p>
-</li>
-</ol>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ cf create-space &lt;your_username&gt;
-$ cf target -s &lt;your_username&gt;</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_build_and_push">Build and Push!</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Change to the <em>Spring Music</em> sample application directory:</p>
-<div class="listingblock">
-<div class="content">
-<pre>$ cd $COURSE_HOME/day_01/session_02/lab_05/spring-music</pre>
-</div>
-</div>
-</li>
-<li>
-<p>If you are on a network that is behind an HTTP proxy, you will need to provide some proxy settings to the Gradle build tool so it can download dependencies. In your user home directory, create a directory named <code>.gradle</code> and a file named <code>gradle.properties</code> in that directory (e.g. <code>~/.gradle/gradle.properties</code> on Linux/OSX or <code>%USERPROFILE%\.gradle\gradle.properties</code> on Windows). Add lines like these to that file, with the address and credentials for your HTTP proxy:</p>
-<div class="listingblock">
-<div class="content">
-<pre>systemProp.http.proxyHost=www.example.com
-systemProp.http.proxyPort=8080
-systemProp.http.proxyUser=userid
-systemProp.http.proxyPassword=password
-
-systemProp.https.proxyHost=www.example.com
-systemProp.https.proxyPort=8080
-systemProp.https.proxyUser=userid
-systemProp.https.proxyPassword=password</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Using the Gradle Wrapper, build and package the application:</p>
-<div class="listingblock">
-<div class="content">
-<pre>$ ./gradlew assemble</pre>
-</div>
+<div class="quoteblock abstract">
+<blockquote>
+<div class="paragraph">
+<p>Cloud Foundry makes the work of horizontally scaling application instances and updating load balancer routing tables easy.</p>
 </div>
 <div class="paragraph">
-<p>The Gradle Wrapper will automatically download the appropriate version of Gradle for this project along with all of <em>Spring Music</em>'s dependencies. This may take a few moments.</p>
+<p>In this lab, we&#8217;ll use a Spring Boot CLI app designed to illustrate Cloud Foundry operations such as scaling.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_push_the_code_cf_scale_boot_code_application">Push the <code>cf-scale-boot</code> Application</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Change to the <code>cf-scale-boot</code> sample application directory:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ cd $COURSE_HOME/day_01/session_02/lab_07/cf-scale-boot</pre>
+</div>
 </div>
 </li>
 <li>
-<p>Push the application!</p>
+<p>Spring Boot CLI applications do not require a separate build step, so go ahead and push the application:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ cf push</pre>
 </div>
 </div>
-<div class="paragraph">
-<p>You should see output similar to the following listing. Take a look at the listing callouts for a play-by-play of what&#8217;s happening:</p>
+</li>
+<li>
+<p>Once again, this application&#8217;s manifest is configured to have a random route assigned to the application.
+So, when the CLI indicates that application is up and running, visit its route in the browser:</p>
+<div class="imageblock">
+<div class="content">
+<img src="../../../Common/images/cf-scale-boot-initial.png" alt="cf scale boot initial">
 </div>
+</div>
+<div class="paragraph">
+<p>You&#8217;ll see that the application is reporting various bits of information that it has discovered from its environment.
+Of primary interest is that this application reports its <em>instance index</em>.
+It also keeps track of and reports how many web requests that this instance has serviced.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scale_the_application_up">Scale the Application Up</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Now let&#8217;s increase the number of running application instances to 5:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ cf scale -i 5 cf-scale-boot
+Scaling app cf-scale-boot in org oreilly-class / space instructor as mstine@pivotal.io...
+OK</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In reporting <code>OK</code>, the CLI is letting you know that the additional requested instances have been started, but they are not yet necessarily running.</p>
+</div>
+</li>
+<li>
+<p>We can determine how many instances are actually running like this:</p>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>Using manifest file /Users/pivotal/mstine/2015/OReilly/CloudNativeArchitectureClass/day_01/session_02/lab_05/spring-music/manifest.yml <b class="conum">(1)</b>
-
-Creating app spring-music in org oreilly-class / space instructor as mstine@pivotal.io...
-OK <b class="conum">(2)</b>
-
-Creating route spring-music-hippest-shaman.cfapps.io...
-OK <b class="conum">(3)</b>
-
-Binding spring-music-hippest-shaman.cfapps.io to spring-music...
-OK <b class="conum">(4)</b>
-
-Uploading spring-music... <b class="conum">(5)</b>
-Uploading app files from: /Users/pivotal/mstine/2015/OReilly/CloudNativeArchitectureClass/day_01/session_02/lab_05/spring-music/build/libs/spring-music.war
-Uploading 569.7K, 90 files
-Done uploading
-OK
-
-Starting app spring-music in org oreilly-class / space instructor as mstine@pivotal.io... <b class="conum">(6)</b>
------&gt; Downloaded app package (21M)
------&gt; Java Buildpack Version: v2.6.1 |  https://github.com/cloudfoundry/java-buildpack.git#2d92e70
------&gt; Downloading Open Jdk JRE 1.8.0_31 from https://download.run.pivotal.io/openjdk/lucid/x86_64/openjdk-1.8.0_31.tar.gz (1.3s)
-       Expanding Open Jdk JRE to .java-buildpack/open_jdk_jre (1.2s) <b class="conum">(7)</b>
------&gt; Downloading Spring Auto Reconfiguration 1.7.0_RELEASE from https://download.run.pivotal.io/auto-reconfiguration/auto-reconfiguration-1.7.0_RELEASE.jar (0.1s)
------&gt; Downloading Tomcat Instance 8.0.18 from https://download.run.pivotal.io/tomcat/tomcat-8.0.18.tar.gz (0.4s)
-       Expanding Tomcat to .java-buildpack/tomcat (0.1s) <b class="conum">(8)</b>
------&gt; Downloading Tomcat Lifecycle Support 2.4.0_RELEASE from https://download.run.pivotal.io/tomcat-lifecycle-support/tomcat-lifecycle-support-2.4.0_RELEASE.jar (0.0s)
------&gt; Downloading Tomcat Logging Support 2.4.0_RELEASE from https://download.run.pivotal.io/tomcat-logging-support/tomcat-logging-support-2.4.0_RELEASE.jar (0.0s)
------&gt; Downloading Tomcat Access Logging Support 2.4.0_RELEASE from https://download.run.pivotal.io/tomcat-access-logging-support/tomcat-access-logging-support-2.4.0_RELEASE.jar (0.0s)
------&gt; Uploading droplet (66M) <b class="conum">(9)</b>
-
-0 of 1 instances running, 1 starting
-1 of 1 instances running
-
-App started
-
-
-OK
-
-App spring-music was started using this command `JAVA_HOME=$PWD/.java-buildpack/open_jdk_jre JAVA_OPTS="-Djava.io.tmpdir=$TMPDIR -XX:OnOutOfMemoryError=$PWD/.java-buildpack/open_jdk_jre/bin/killjava.sh -Xmx382293K -Xms382293K -XX:MaxMetaspaceSize=64M -XX:MetaspaceSize=64M -Xss995K -Daccess.logging.enabled=false -Dhttp.port=$PORT" $PWD/.java-buildpack/tomcat/bin/catalina.sh run` <b class="conum">(10)</b>
-
-Showing health and status for app spring-music in org oreilly-class / space instructor as mstine@pivotal.io... <b class="conum">(11)</b>
+<pre>$ cf app cf-scale-boot
+Showing health and status for app cf-scale-boot in org oreilly-class / space instructor as mstine@pivotal.io...
 OK
 
 requested state: started
-instances: 1/1
-usage: 512M x 1 instances
-urls: spring-music-hippest-shaman.cfapps.io
-last uploaded: Fri Feb 13 15:43:08 UTC 2015
+instances: 5/5
+usage: 512M x 5 instances
+urls: cf-scale-boot-stockinged-rust.cfapps.io
+last uploaded: Fri Feb 13 18:56:29 UTC 2015
 
-     state     since                    cpu    memory           disk
-#0   running   2015-02-13 09:43:55 AM   0.0%   394.5M of 512M   131.1M of 1G</pre>
+     state      since                    cpu    memory           disk
+#0   running    2015-02-13 12:57:10 PM   0.1%   404.8M of 512M   128.9M of 1G <b class="conum">(1)</b>
+#1   starting   2015-02-13 03:04:33 PM   0.0%   0 of 0           0 of 0 <b class="conum">(2)</b>
+#2   running    2015-02-13 03:04:47 PM   0.0%   398.7M of 512M   128.9M of 1G
+#3   starting   2015-02-13 03:04:33 PM   0.0%   0 of 0           0 of 0
+#4   starting   2015-02-13 03:04:33 PM   0.0%   0 of 0           0 of 0</pre>
 </div>
 </div>
 <div class="colist arabic">
 <ol>
 <li>
-<p>The CLI is using a manifest to provide necessary configuration details such as application name, memory to be allocated, and path to the application artifact.
-Take a look at <code>manifest.yml</code> to see how.</p>
+<p>This application instance has completed the startup process and is actually able to accept requests.</p>
 </li>
 <li>
-<p>In most cases, the CLI indicates each Cloud Foundry API call as it happens.
-In this case, the CLI has created an application record for <em>Spring Music</em> in your assigned space.</p>
-</li>
-<li>
-<p>All HTTP/HTTPS requests to applications will flow through Cloud Foundry&#8217;s front-end router called <a href="http://docs.cloudfoundry.org/concepts/architecture/router.html">(Go)Router</a>.
-Here the CLI is creating a route with random word tokens inserted (again, see <code>manifest.yml</code> for a hint!) to prevent route collisions across the default <code>cfapps.io</code> domain.</p>
-</li>
-<li>
-<p>Now the CLI is <em>binding</em> the created route to the application.
-Routes can actually be bound to multiple applications to support techniques such as <a href="http://www.mattstine.com/2013/07/10/blue-green-deployments-on-cloudfoundry">blue-green deployments</a>.</p>
-</li>
-<li>
-<p>The CLI finally uploads the application bits to PWS. Notice that it&#8217;s uploading <em>90 files</em>! This is because Cloud Foundry actually explodes a ZIP artifact before uploading it for caching purposes.</p>
-</li>
-<li>
-<p>Now we begin the staging process. The <a href="https://github.com/cloudfoundry/java-buildpack">Java Buildpack</a> is responsible for assembling the runtime components necessary to run the application.</p>
-</li>
-<li>
-<p>Here we see the version of the JRE that has been chosen and installed.</p>
-</li>
-<li>
-<p>And here we see the version of Tomcat that has been chosen and installed.</p>
-</li>
-<li>
-<p>The complete package of your application and all of its necessary runtime components is called a <em>droplet</em>.
-Here the droplet is being uploaded to PWS&#8217;s internal blobstore so that it can be easily copied to one or more <em><a href="http://docs.cloudfoundry.org/concepts/architecture/execution-agent.html">Droplet Execution Agents (DEA&#8217;s)</a></em> for execution.</p>
-</li>
-<li>
-<p>The CLI tells you exactly what command and argument set was used to start your application.</p>
-</li>
-<li>
-<p>Finally the CLI reports the current status of your application&#8217;s health.
-You can get the same output at any time by typing <code>cf app spring-music</code>.</p>
+<p>This application instance is still starting and will not have any requests routed to it.</p>
 </li>
 </ol>
 </div>
@@ -608,16 +523,91 @@ You can get the same output at any time by typing <code>cf app spring-music</cod
 </div>
 </li>
 <li>
-<p>Visit the application in your browser by hitting the route that was generated by the CLI:</p>
+<p>Eventually all instances will converge to a running state:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ cf app cf-scale-boot
+Showing health and status for app cf-scale-boot in org oreilly-class / space instructor as mstine@pivotal.io...
+OK
+
+requested state: started
+instances: 5/5
+usage: 512M x 5 instances
+urls: cf-scale-boot-stockinged-rust.cfapps.io
+last uploaded: Fri Feb 13 18:56:29 UTC 2015
+
+     state     since                    cpu    memory           disk
+#0   running   2015-02-13 12:57:10 PM   0.1%   404.8M of 512M   128.9M of 1G
+#1   running   2015-02-13 03:04:51 PM   0.1%   377.5M of 512M   128.9M of 1G
+#2   running   2015-02-13 03:04:47 PM   0.1%   397.3M of 512M   128.9M of 1G
+#3   running   2015-02-13 03:05:03 PM   0.0%   389.2M of 512M   128.9M of 1G
+#4   running   2015-02-13 03:04:52 PM   0.1%   393.4M of 512M   128.9M of 1G</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Revisit the application route in the browser.
+Refresh several times.
+You should observe the instance index and request counters changing as you do so:</p>
 <div class="imageblock">
 <div class="content">
-<img src="../../../Common/images/Spring_Music_NS.png" alt="Spring Music NS">
+<img src="../../../Common/images/cf-scale-boot-scaled.png" alt="cf scale boot scaled">
 </div>
 </div>
 <div class="paragraph">
-<p>Be sure to click on the ``information icon'' in the top right-hand corner of the UI.
-This gives you important information about the state of the currently running <em>Spring Music</em> instance, including what Spring Profiles are turned on and what Cloud Foundry services are bound.
-It will become important in the next lab!</p>
+<p>The aforementioned <a href="http://docs.cloudfoundry.org/concepts/architecture/router.html">(Go)Router</a> is applying a random routing algorithm to all of the application instances assigned to this route.
+As an instance reaches the <code>running</code> state, its <a href="http://docs.cloudfoundry.org/concepts/architecture/execution-agent.html">DEA</a> registers that instance in the routing table assigned to its route by sending a message to Cloud Foundry&#8217;s message bus.
+All (Go)Router instances are subscribed to this channel and register the routes independently.
+This makes for very dynamic and rapid reconfiguration!</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scale_the_application_down">Scale the Application Down</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>We can scale the application instances back down as easily as we scaled them up, using the same command structure:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ cf scale -i 1 cf-scale-boot
+Scaling app cf-scale-boot in org oreilly-class / space instructor as mstine@pivotal.io...
+OK</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check the application status again:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ cf app cf-scale-boot
+Showing health and status for app cf-scale-boot in org oreilly-class / space instructor as mstine@pivotal.io...
+OK
+
+requested state: started
+instances: 1/1
+usage: 512M x 1 instances
+urls: cf-scale-boot-stockinged-rust.cfapps.io
+last uploaded: Fri Feb 13 18:56:29 UTC 2015
+
+     state     since                    cpu    memory         disk
+#0   running   2015-02-13 12:57:10 PM   0.1%   405M of 512M   128.9M of 1G</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see, we&#8217;re back down to only one instance running, and it is in fact the original index 0 that we started with.</p>
+</div>
+</li>
+<li>
+<p>Confirm that by again revisiting the route in the browser and checking the instance index and request counter:</p>
+<div class="imageblock">
+<div class="content">
+<img src="../../../Common/images/cf-scale-boot-unscaled.png" alt="cf scale boot unscaled">
+</div>
 </div>
 </li>
 </ol>
@@ -627,7 +617,7 @@ It will become important in the next lab!</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-06-13 21:39:21 EDT
+Last updated 2015-06-14 10:19:50 EDT
 </div>
 </div>
 </body>
