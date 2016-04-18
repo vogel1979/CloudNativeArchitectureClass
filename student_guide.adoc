@@ -59,11 +59,10 @@ $ git fetch
 
 * Session 1 Introduction to Spring Boot, Environment variables and metrics
 ** (link:day_01/session_01/springbootbasics.pdf[Spring Boot Basics])
-** (link:day_01/session_01/springbootbasics.pdf[Spring Boot Basics])
-** link:day_01/session_01/lab_01/lab_01.html[Lab 1 - Getting Started with Spring Boot]
-** link:day_01/session_01/lab_02/lab_02.html[Lab 2 - Deploying a Web Application with an Embedded Container]
-** link:day_01/session_01/lab_03/lab_03.html[Lab 3 - Externalizing Configuration with Spring Boot]
-** link:day_01/session_01/lab_04/lab_04.html[Lab 4 - Introspection, Monitoring, and Metrics using Spring Boot Actuator]
+** (link:day_01/session_01/springbootenv.pdf[Spring Boot Environment])
+** (link:day_01/session_01/springbootactuator.pdf[Spring Boot Actuators])
+** link:day_01/session_01/lab_01/lab_01.html[Lab 1 - Getting Started with Spring Boot, Web applications with embedded containers and Externalizing configuration]
+** link:day_01/session_01/lab_02/lab_02.html[Lab 2 - Introspection, Monitoring, and Metrics using Spring Boot Actuator]
 * Session 2
 ** link:day_01/session_02/lab_05/lab_05.html[Lab 5 - From Zero to Pushing Your First Application]
 ** link:day_01/session_02/lab_06/lab_06.html[Lab 6 - Binding to Cloud Foundry Services]
