@@ -1,5 +1,5 @@
 :compat-mode:
-= Lab 6 - Binding to Cloud Foundry Services
+= Lab 4 - Binding to Cloud Foundry Services
 
 [abstract]
 --

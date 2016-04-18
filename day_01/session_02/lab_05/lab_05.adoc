@@ -1,4 +1,4 @@
-= Lab 7 - Scaling Applications
+= Lab 5 - Scaling Applications
 
 [abstract]
 --

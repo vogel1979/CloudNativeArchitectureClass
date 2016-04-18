@@ -58,16 +58,16 @@ $ git fetch
 === Day One
 
 * Session 1 Introduction to Spring Boot, Environment variables and metrics
-** (link:day_01/session_01/springbootbasics.pdf[Spring Boot Basics])
-** (link:day_01/session_01/springbootenv.pdf[Spring Boot Environment])
-** (link:day_01/session_01/springbootactuator.pdf[Spring Boot Actuators])
+** link:day_01/session_01/springbootbasics.pdf[Spring Boot Basics]
+** link:day_01/session_01/springbootenv.pdf[Spring Boot Environment]
+** link:day_01/session_01/springbootactuator.pdf[Spring Boot Actuators]
 ** link:day_01/session_01/lab_01/lab_01.html[Lab 1 - Getting Started with Spring Boot, Web applications with embedded containers and Externalizing configuration]
 ** link:day_01/session_01/lab_02/lab_02.html[Lab 2 - Introspection, Monitoring, and Metrics using Spring Boot Actuator]
 * Session 2
-** link:day_01/session_02/lab_05/lab_05.html[Lab 5 - From Zero to Pushing Your First Application]
-** link:day_01/session_02/lab_06/lab_06.html[Lab 6 - Binding to Cloud Foundry Services]
-** link:day_01/session_02/lab_07/lab_07.html[Lab 7 - Scaling Applications]
-** link:day_01/session_02/lab_08/lab_08.html[Lab 8 - Monitoring Applications]
+** link:day_01/session_02/lab_03/lab_03.html[Lab 3 - From Zero to Pushing Your First Application]
+** link:day_01/session_02/lab_04/lab_04.html[Lab 4 - Binding to Cloud Foundry Services]
+** link:day_01/session_02/lab_05/lab_05.html[Lab 5 - Scaling Applications]
+** link:day_01/session_02/lab_06/lab_06.html[Lab 6 - Monitoring Applications]
 * Session 3 (link:day_01/session_03/session_03.pdf[Slides])
 ** link:day_01/session_03/lab_09/lab_09.html[Lab 9 - Build a Hypermedia-Driven RESTful Web Service with Spring Data REST]
 ** link:day_01/session_03/lab_10/lab_10.html[Lab 10 - Leveraging Spring Cloud Connectors for Service Binding]
