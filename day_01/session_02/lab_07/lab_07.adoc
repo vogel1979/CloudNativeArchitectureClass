@@ -4,8 +4,29 @@
 --
 Cloud Foundry makes the work of horizontally scaling application instances and updating load balancer routing tables easy.
 
-In this lab, we'll use a Spring Boot CLI app designed to illustrate Cloud Foundry operations such as scaling.
+In this lab, we'll use a Spring Boot CLI app designed to illustrate Cloud Foundry operations such as scaling. In the case your PCF instance does not have internet access you could prebuilt the app local as a jar and push it afterwards. You could also use any other application you like for this lab (for example spring-music).
 --
+
+
+== (Optional) Prebuilt the Application if your PCF instance does not have internet access
+
+. Change to the `cf-scale-boot` sample application directory:
++
+----
+$ cd $COURSE_HOME/day_01/session_02/lab_07/cf-scale-boot
+----
+
+. Prebuilt the Application if your PCF instance does not have internet access (Install spring boot cli: http://docs.spring.io/autorepo/docs/spring-boot/1.1.4.RELEASE/reference/html/getting-started-installing-spring-boot.html#getting-started-installing-the-cli):
++
+----
+$ spring jar cf-scale-boot.jar app.groovy
+----
+
+. Push the application:
++
+----
+$ cf push -p ./cf-scale-boot.jar
+----
 
 == Push the `cf-scale-boot` Application
 

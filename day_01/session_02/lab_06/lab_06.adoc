@@ -4,7 +4,7 @@
 [abstract]
 --
 The _Spring Music_ application was designed to illustrate the ease with which various types of data services can be bound to and utilized by Spring applications running on Cloud Foundry.
-In this lab, we'll be binding the application to both MySql and MongoDB databases.
+In this lab, we'll be binding the application to both MySql databases.
 
 Cloud Foundry services are managed through two primary types of operations:
 
@@ -147,51 +147,6 @@ As you can see from the information dialog, the application is now utilizing a M
 . *(OPTIONAL STEPS)* If you have a MySql GUI tool handy and you are using a lab environment that has the necessary network access (ask your instructor), you can inspect the music database created. Otherwise, your instructor will demo via a Pivotal VPN connection.
 
 . In your DB tool, create a new server connection and populate the properties with values from the URI in your `VCAP_SERVICES` environment variable (remember `cf env spring-muisc`!):
-
-== Swapping from MySql to MongoDB
-
-. Now let's bind our _Spring Music_ application to MongoDB instead of MySql. First let's create footnote:[Notice in this listing that we're typing `cf cs` rather than `cf create-service`.
-Most CF CLI commands have a shorthand version to save typing time.
-You can view these shorthand commands via `cf help` or `cf h` (See! More shorthand!).] a MongoDB instance from the Pivotal Cloud Foundry marketplace:
-+
-----
-$ cf cs p-mongodb development spring-music-mongo 
-Creating service spring-music-mongo in org ACME / space instructor as mstine@pivotal.io...
-OK
-----
-
-. Next we'll unbind our application from our MySql instance (_Spring Music_ does not support being bound to multiple datasources at the same time):
-+
-----
-$ cf us spring-music spring-music-db
-----
-+
-If you visit your application now, you'll see that it still works.
-If you recall, environment variable changes (such as binding/unbinding of services) don't actually take effect until a _restage_ or _restart_.
-
-. Now let's bind the application to our MongoDB instance:
-+
-----
-$ cf bs spring-music spring-music-mongo
-Binding service spring-music-mongo to app spring-music in org oreilly-class / space instructor as mstine@pivotal.io...
-OK
-TIP: Use 'cf restage' to ensure your env variable changes take effect
-----
-
-. And then do a restage:
-+
-----
-$ cf restage spring-music
-----
-
-+
-Once the application is running again, revisit or refresh the browser tab where you have the _Spring Music_ application loaded:
-+
-image::../../../Common/images/Spring_Music_Mongo.png[]
-+
-As you can see from the information dialog, the application is now utilizing a MongoDB database via the `spring-music-mongo` service.
-
-. *(OPTIONAL)* Similar to the steps to view the relational data in another DB tool, a MongoDB client tool can be used to inspect the MongoDB instance.  Your instructor can demo this if you do not have access to the tool and / or the appropriate network access to the MongoDB instance.
 
 == Clean Up
 
