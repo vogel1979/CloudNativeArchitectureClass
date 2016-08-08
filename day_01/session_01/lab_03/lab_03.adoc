@@ -12,19 +12,22 @@ $ cd $COURSE_HOME/day_01/session_01/lab_03/initial/hello-spring-boot
 
 . Rename `src/main/resources/application.properties` to `src/main/resources/application.yml`. Into that file, paste the following:
 +
+[source,yml]
 ----
 greeting: Hello
 ----
 
 . To the class `io.pivotal.spring.hello.HelloSpringBootApplication`, add a `greeting` field and inject its value:
 +
+[source,java]
 ----
 @Value("${greeting}")
 String greeting;
 ----
 
-. Also `io.pivotal.spring.hello.HelloSpringBootApplication`, change the return statement of `hello()` to the following:
+. Below in `io.pivotal.spring.hello.HelloSpringBootApplication`, change the return statement of `hello()` to the following:
 +
+[source,java]
 ----
 return String.format("%s World!", greeting);
 ----
@@ -69,6 +72,7 @@ Ohai World!
 
 . Add a `spanish` profile to `application.yml`. Your finished configuration should reflect the following:
 +
+[source,yml]
 ----
 greeting: Hello
 

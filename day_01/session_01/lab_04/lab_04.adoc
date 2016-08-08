@@ -12,6 +12,7 @@ $ cd $COURSE_HOME/day_01/session_01/lab_04/initial/hello-spring-boot
 
 . To `pom.xml` add the following dependency to include the starter for Spring Boot Actuator:
 +
+[source,xml]
 ----
 <dependency>
 	<groupId>org.springframework.boot</groupId>
@@ -52,6 +53,7 @@ One thing that it does well is expose information about the specific build and v
 . Add the following plugin to your Maven build.
 It will add Git branch and commit coordinates to the `/info` endpoint:
 +
+[source,xml]
 ----
 <plugin>
 	<groupId>pl.project13.maven</groupId>
@@ -66,6 +68,7 @@ NOTE: The path `../../../../../.git` refers to the `.git` directory at the root 
 
 . Add the following properties to `src/main/resources/application.yml`:
 +
+[source,yml]
 ----
 info:
   build:
@@ -117,6 +120,7 @@ Spring Boot provides an endpoint (http://localhost:8080/health) that allows for 
 To simplify working with the endpoint for this lab, we will turn off its sensitivity.
 Add the following to `src/main/resources/application.yml`:
 +
+[source,yml]
 ----
 endpoints:
   health:
@@ -125,6 +129,7 @@ endpoints:
 
 . Create the class `io.pivotal.spring.hello.FlappingHealthIndicator` and into it paste the following code:
 +
+[source, java]
 ----
 @Component
 public class FlappingHealthIndicator implements HealthIndicator{
@@ -182,6 +187,7 @@ It also allows for the creation of custom metrics.
 
 . Create the class `io.pivotal.spring.hello.GreetingService` and into it paste the following code:
 +
+[source, java]
 ----
 @Component
 public class GreetingService {
@@ -203,6 +209,7 @@ This class is using the `@Autowired` `CounterService` to count the number of tim
 
 . Refactor the contents of the class `io.spring.hello.HelloSpringBootApplication`:
 +
+[source, java]
 ----
 @Autowired
 private GreetingService greetingService;

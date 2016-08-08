@@ -41,6 +41,7 @@ and import the project (via `pom.xml`) into your IDE of choice.
 
 . Create the package `io.springbox.recommendations.domain` and in that package create the class `Movie`. Into that file you can paste the following source code:
 +
+[source,java]
 ----
 @NodeEntity
 public class Movie {
@@ -89,6 +90,7 @@ public class Movie {
 
 . Also in the package `io.springbox.recommendations.domain` create the class `Person`. Into that file you can paste the following source code:
 +
+[source,java]
 ----
 @NodeEntity
 public class Person {
@@ -145,6 +147,7 @@ public class Person {
 
 . Also in the package `io.springbox.recommendations.domain` create the class `Likes`. Into that file you can paste the following source code:
 +
+[source,java]
 ----
 @RelationshipEntity(type = "LIKES")
 public class Likes {
@@ -195,6 +198,7 @@ public class Likes {
 
 . Create the package `io.springbox.recommendations.repositories` and in that package create the interface `MovieRepository`. Into that file you can paste the following source code:
 +
+[source,java]
 ----
 public interface MovieRepository extends GraphRepository<Movie> {
     Movie findByMlId(String mlId);
@@ -209,16 +213,18 @@ public interface MovieRepository extends GraphRepository<Movie> {
 }
 ----
 
-. Also in the package `io.springbox.recommendations.repositories` create the interface `PersonRepository`. Into that file you can paste the following source code:
+. In the same package `io.springbox.recommendations.repositories` create the interface `PersonRepository`. Into that file you can paste the following source code:
 +
+[source,java]
 ----
 public interface PersonRepository extends GraphRepository<Person> {
     Person findByUserName(String userName);
 }
 ----
 
-. Also in the package `io.springbox.recommendations.repositories` create the interface `LikesRepository`. Into that file you can paste the following source code:
+. Again in the package `io.springbox.recommendations.repositories` create the interface `LikesRepository`. Into that file you can paste the following source code:
 +
+[source,java]
 ----
 public interface LikesRepository extends GraphRepository<Likes> {
 }
@@ -226,6 +232,7 @@ public interface LikesRepository extends GraphRepository<Likes> {
 
 . Create the package `io.springbox.recommendations.controllers` and in that package create the class `MovieController`. Into that file you can paste the following source code:
 +
+[source,java]
 ----
 @RestController
 public class MovieController {
@@ -246,8 +253,9 @@ public class MovieController {
 }
 ----
 
-. Also in the package `io.springbox.recommendations.controllers` create the class `PersonController`. Into that file you can paste the following source code:
+. Again in the package `io.springbox.recommendations.controllers` create the class `PersonController`. Into that file you can paste the following source code:
 +
+[source,java]
 ----
 @RestController
 public class PersonController {
@@ -271,6 +279,7 @@ public class PersonController {
 
 . Also in the package `io.springbox.recommendations.controllers` create the class `LikesController`. Into that file you can paste the following source code:
 +
+[source,java]
 ----
 @RestController
 public class LikesController {
@@ -287,6 +296,7 @@ public class LikesController {
 
 . Also in the package `io.springbox.recommendations.controllers` create the class `RecommendationsController`. Into that file you can paste the following source code:
 +
+[source,java]
 ----
 @RestController
 public class RecommendationsController {
@@ -326,6 +336,7 @@ public class RecommendationsController {
 
 . Create the package `io.springbox.recommendations.config` and in that package create the class `Neo4jConfig`. Into that file you can paste the following source code:
 +
+[source,java]
 ----
 @Configuration
 public class Neo4jConfig extends Neo4jConfiguration {
@@ -337,6 +348,7 @@ public class Neo4jConfig extends Neo4jConfiguration {
 
 . Also in the package `io.springbox.recommendations.config` create the class `LocalConfig`. Into that file you can paste the following source code:
 +
+[source,java]
 ----
 @Configuration
 @Profile("default")
@@ -352,6 +364,7 @@ public class LocalConfig {
 
 . Add the `@EnableNeo4jRepositories` annotation to `io.springbox.recommendations.SpringboxRecommendationsApplication`:
 +
+[source,java]
 ----
 @SpringBootApplication
 @EnableNeo4jRepositories(basePackages = "io.springbox.recommendations.repositories") // <--- Add this!
@@ -365,11 +378,12 @@ public class SpringboxRecommendationsApplication {
 
 . Add the following to `application.properties` -- we'll eventually want to run multiple apps locally, so we need to change the port:
 +
+[source,java]
 ----
 server.port=8082
 ----
 
-. To run the application locally, you'll need a local Neo4J install.  You can alternatively skip running locally and avoid 
+. To run the application locally, you'll need a local Neo4J install.  You can alternatively skip running locally and avoid
 installing Neo4J on your machine.  If you choose to not run locally, skip to the Cloud Foundry section.  Otherwise, you need to download the Neo4J Community Edition (you must use version 2.1.x) http://neo4j.com/download/[here].  Also, turn off authentication in Neo4J in neo4j-server.properties (dbms.security.auth_enabled=false).
 
 . Build the JAR:
@@ -394,6 +408,7 @@ LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/mstine/CloudNative
 
 . Access the application using `curl` to make sure everything is working properly:
 +
+[source,bash]
 ----
 $ curl -i localhost:8082/recommendations/forMovie/1
 HTTP/1.1 200 OK
@@ -418,10 +433,11 @@ X-Application-Context: application:8082
 
 +
 $ cf cs p-neo4j development springbox-recommendations-db
- 
+
 
 . In the package `io.springbox.recommendations.config` create the class `CloudConfig`. Into that file you can paste the following source code:
 +
+[source,java]
 ----
 @Configuration
 @Profile("cloud")
@@ -479,10 +495,11 @@ last uploaded: Tue Feb 17 05:40:41 UTC 2015
 #0   running   2015-02-16 09:41:31 PM   0.0%   366.7M of 512M   146.9M of 1G
 ----
 
-.  Use what you've learned so far to insert a couple people, movies, and relationships into the neo4j instance throught he REST service you just deployed (hint:  inspect the controller) 
+.  Use what you've learned so far to insert a couple people, movies, and relationships into the neo4j instance throught he REST service you just deployed (hint:  inspect the controller)
 
 . Access the application using `curl` to make sure everything is working properly:
 +
+[source,bash]
 ----
 $ curl -i springbox-recommendations-preadherent-werewolf.cfapps.io/recommendations/forMovie/1
 HTTP/1.1 200 OK
