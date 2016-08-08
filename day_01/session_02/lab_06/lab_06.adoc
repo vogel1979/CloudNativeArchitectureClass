@@ -37,8 +37,9 @@ and you'll get a list of services, their available plans, and descriptions.
 The second way is specific to Pivotal Cloud Foundry's Application Manager UI.
 If you haven't already, login to it by visiting {CF-CONSOLE-URL}.
 
-Click on the ``Marketplace'' link:
 _The Screenshots below are from Pivotal Web Services (public managed Pivotal CF).  If you are using Pivotal Cloud Foundry, you will see something similar._
+
+Click on the ``Marketplace'' link:
 
 image::../../../Common/images/PWS_AM_InstructorSpace.png[]
 
@@ -49,11 +50,11 @@ image::../../../Common/images/PWS_Marketplace.png[]
 == Creating and Binding to a Service Instance
 
 . Let's begin by creating a MySql instance provided by Pivotal.
- 
++
 From the CLI, let's _create_ a p-mysql service instance:
 +
 ----
-$ cf create-service p-mysql 100mb-dev spring-music-db 
+$ cf create-service p-mysql 100mb-dev spring-music-db
 Creating service spring-music-db in org ACME / space instructor as mstine@pivotal.io...
 OK
 ----
@@ -68,7 +69,7 @@ TIP: Use 'cf restage' to ensure your env variable changes take effect
 ----
 
 . Notice the admonition to `Use 'cf restage' to ensure your env variable changes take effect`.
-Let's take a look at the environment variables for our application to see what's been done. We can do this by typing:
+Before that, let's take a look at the environment variables for our application to see what's been done so far. We can do this by typing:
 +
 ----
 $ cf env spring-music

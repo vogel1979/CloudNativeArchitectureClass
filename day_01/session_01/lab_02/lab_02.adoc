@@ -1,5 +1,9 @@
 = Lab 2 - Deploying a Web Application with an Embedded Container
 
+In this Lab, we'll run our `Hello World`-Application with the built-in Tomcat and discover how to change this to Jetty.
+
+NOTE: The completed code for this lab can be found at `$COURSE_HOME/day_01/session_01/lab_02/complete/hello-spring-boot`.
+
 == Build and Run with Embedded Apache Tomcat
 
 Spring Boot will embed Apache Tomcat by default.

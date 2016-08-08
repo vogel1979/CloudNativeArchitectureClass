@@ -23,6 +23,7 @@ and import the project (via `pom.xml`) into your IDE of choice.
 
 . Create the package `io.springbox.reviews.domain` and in that package create the class `Review`. Into that file you can paste the following source code:
 +
+[source,java]
 ----
 public class Review {
     @Id
@@ -92,6 +93,7 @@ public class Review {
 
 . Create the package `io.springbox.reviews.repositories` and in that package create the interface `ReviewRepository`. Into that file you can paste the following source code:
 +
+[source,java]
 ----
 public interface ReviewRepository extends MongoRepository<Review, String> {
     Iterable<Review> findByMlId(String mlId);
@@ -100,6 +102,7 @@ public interface ReviewRepository extends MongoRepository<Review, String> {
 
 . Create the package `io.springbox.reviews.controllers` and in that package create the interface `ReviewController`. Into that file you can paste the following source code:
 +
+[source,java]
 ----
 @RestController
 public class ReviewController {
@@ -127,6 +130,7 @@ public class ReviewController {
 
 . Add the `@EnableMongoRepositories` annotation to `io.springbox.reviews.SpringboxReviewsApplication`:
 +
+[source,java]
 ----
 @SpringBootApplication
 @EnableMongoRepositories // <--- Add this!
@@ -140,6 +144,7 @@ public class SpringboxReviewsApplication {
 
 . Add the following to `application.properties` -- we'll eventually want to run multiple apps locally, so we need to change the port:
 +
+[source,java]
 ----
 server.port=8081
 ----
@@ -169,6 +174,7 @@ $ scripts/loadReviews.sh
 
 . Access the application using `curl` to make sure everything is working properly:
 +
+[source,bash]
 ----
 $ curl -i localhost:8081/reviews/1
 HTTP/1.1 200 OK
@@ -203,6 +209,7 @@ OK
 
 . Add the appropriate dependencies for the Spring Cloud Connectors:
 +
+[source,xml]
 ----
 <dependency>
   <groupId>org.springframework.cloud</groupId>
@@ -265,6 +272,7 @@ $ ROUTE=springbox-reviews-understaffed-nickeltype.cfapps.io scripts/loadReviews.
 
 . Access the application using `curl` to make sure everything is working properly:
 +
+[source,bash]
 ----
 $ curl -i springbox-reviews-understaffed-nickeltype.cfapps.io/reviews/1
 HTTP/1.1 200 OK

@@ -17,7 +17,7 @@ $ cd $COURSE_HOME/day_01/session_03/lab_09/initial/cities
 
 . Add a runtime dependency on the http://hsqldb.org/[HyperSQL in-memory database] to +build.gradle+:
 +
-[source,groovy]
+[source,java]
 ----
 dependencies {
     // ...
@@ -247,7 +247,7 @@ $ curl -i "localhost:8080/cities?size=5&page=3"
 $ curl -i "localhost:8080/cities?sort=postalCode,desc"
 ----
 +
-Next we'll add searching capabilities.
+In the next step we'll add searching capabilities.
 
 == Adding Search
 

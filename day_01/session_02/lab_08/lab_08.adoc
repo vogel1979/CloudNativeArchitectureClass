@@ -185,7 +185,7 @@ image::../../../Common/images/papertrail_1.png[]
 +
 image::../../../Common/images/papertrail_2.png[]
 
-. Choose ``I use Heroku'' and provide a name:
+. Choose ``I use Heroku (now stating Cloud Foundry as well)'' and provide a name:
 +
 image::../../../Common/images/papertrail_3.png[]
 

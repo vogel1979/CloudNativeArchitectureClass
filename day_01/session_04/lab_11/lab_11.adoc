@@ -24,6 +24,7 @@ and import the project (via `pom.xml`) into your IDE of choice.
 
 . Start by adding a dependency on the http://hsqldb.org/[HyperSQL in-memory database] to `pom.xml`:
 +
+[source,xml]
 ----
 <dependency>
   <groupId>org.hsqldb</groupId>
@@ -33,6 +34,7 @@ and import the project (via `pom.xml`) into your IDE of choice.
 
 . Create the package `io.springbox.catalog.domain` and in that package create the class `Genre`. Into that file you can paste the following source code, which models the MovieLens `Genre` concept:
 +
+[source,java]
 ----
 @Entity
 @Table(name = "genres")
@@ -91,6 +93,7 @@ This class won't compile just yet, and we'll fix that in the next step.
 
 . Also in the `io.springbox.catalog.domain` package,  create the class `Movie`. Into that file you can paste the following source code, which models the MovieLens `Movie` concept:
 +
+[source,java]
 ----
 @Entity
 @Table(name = "movies")
@@ -154,6 +157,7 @@ At this point, both `Movie` and `Genre` should compile.
 
 . Create the package `io.springbox.catalog.repositories` and in that package create the interface `GenreRepository`. Paste the following code and add appropriate imports:
 +
+[source,java]
 ----
 public interface GenreRepository extends CrudRepository<Genre, Long> {
     Genre findByMlId(String mlId);
@@ -162,6 +166,7 @@ public interface GenreRepository extends CrudRepository<Genre, Long> {
 
 . Also in the `io.springbox.catalog.repositories` package,  create the interface `MovieRepository`. Paste the following code and add appropriate imports:
 +
+[source,java]
 ----
 public interface MovieRepository extends CrudRepository<Movie, Long> {
     public Movie findByMlId(String mlId);
@@ -170,6 +175,7 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 
 . Create the package `io.springbox.catalog.controllers` and in that package create the class `GenreController`. Paste the following code and add appropriate imports:
 +
+[source,java]
 ----
 @RestController
 public class GenreController {
@@ -191,6 +197,7 @@ public class GenreController {
 
 . Also in the `io.springbox.catalog.controllers` package,  create the class `MovieController`. Paste the following code and add appropriate imports:
 +
+[source,java]
 ----
 @RestController
 public class MovieController {
@@ -212,6 +219,7 @@ public class MovieController {
 
 . Add the `@EnableJpaRepositories` annotation to `io.springbox.catalog.SpringboxCatalogApplication`:
 +
+[source,java]
 ----
 @SpringBootApplication
 @EnableJpaRepositories // <--- Add this!
@@ -226,6 +234,7 @@ public class SpringboxCatalogApplication {
 . Take a look at `src/main/resources/import.sql`, which has already been provided in your project.
 It contains the MovieLens dataset imports that we'll be using (excerpt here):
 +
+[source,sql]
 ----
 insert into genres (name,ml_id,id) values ('unknown',0,1000);
 insert into genres (name,ml_id,id) values ('Action',1,1001);
@@ -277,6 +286,7 @@ $ java -jar target/springbox-catalog-0.0.1-SNAPSHOT.jar
 
 . Access the application using `curl` to make sure everything is working properly:
 +
+[source,bash]
 ----
 $ curl -i localhost:8080/movies/1
 HTTP/1.1 200 OK
@@ -320,6 +330,7 @@ OK
 
 . Add the appropriate dependencies for MySQL's JDBC driver and the Spring Cloud Connectors:
 +
+[source,xml]
 ----
 <dependency>
   <groupId>org.mariadb.jdbc</groupId>
@@ -342,6 +353,7 @@ This will allow us to run locally with HSQLDB and on PWS with PostgreSQL.
 
 . Paste the following into `application.yml`:
 +
+[source,yml]
 ----
 spring:
   jpa:
@@ -410,6 +422,7 @@ last uploaded: Mon Feb 16 19:34:38 UTC 2015
 
 . Access the application using `curl` at the random route provided by CF:
 +
+[source,bash]
 ----
 $ curl -i springbox-catalog-overwild-nonrevival.cfapps.io/movies/1
 HTTP/1.1 200 OK
