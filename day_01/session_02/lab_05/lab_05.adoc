@@ -1,6 +1,10 @@
 = Lab 5 - From Zero to Pushing Your First Application
 
-== Setup
+In this Lab, we'll use an existing Spring-Boot Application and push it to Pivotal Cloud Foundry. You will learn about the stages of deployment and the techniques used by Cloud Foundry. Finally you will see you application running on Pivotal Cloud Foundry.
+
+NOTE: The completed code for this lab can be found at `$COURSE_HOME/day_01/session_02/lab_05/spring-music`.
+
+== Setup the proxy
 
 . If you are on a network that requires a proxy, set the proxy as an environment variable:
 +
