@@ -1,5 +1,11 @@
 = Lab 1 - Getting Started with Spring Boot
 
+In this Lab, we'll get started with Spring Boot and create our first `Hello World`-Application.
+
+NOTE: The completed code for this lab can be found at `$COURSE_HOME/day_01/session_01/lab_01/complete/hello-spring-boot`.
+
+== Creating the application
+
 . In your browser, visit http://start.spring.io.
 
 . Fill out the *Project metadata* fields as follows:

@@ -1,5 +1,11 @@
 = Lab 4 - Introspection, Monitoring, and Metrics using Spring Boot Actuator
 
+In this Lab, we'll dive into monitoring our `Hello World`-Application using Spring Boot Acutator. You will learn about its capabilities and the endpoints it provides.
+
+NOTE: The completed code for this lab can be found at `$COURSE_HOME/day_01/session_01/lab_04/complete/hello-spring-boot`.
+
+== Creating the application
+
 == Set up the Actuator
 
 . Change to the lab directory (or build off of lab_01, lab_02, or lab_03):

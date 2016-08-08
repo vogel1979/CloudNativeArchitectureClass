@@ -1,5 +1,10 @@
 = Lab 3 - Externalizing Configuration with Spring Boot
 
+In this Lab, we'll externalize our configuration and let our `Hello World`-Application pull in its configuration from a file.
+
+NOTE: The completed code for this lab can be found at `$COURSE_HOME/day_01/session_01/lab_03/complete/hello-spring-boot`.
+
+
 == Refactoring to Externalize the Config
 
 . Change to the lab directory (or continue to build off of lab_01 or lab_02):
