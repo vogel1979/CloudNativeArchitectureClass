@@ -24,30 +24,10 @@ NOTE: We will be updating the course materials throughout the class. You will ne
 This can be accomplished as follows:
 
 ----
-$ git clone https://github.com/vinayu/CloudNativeArchitectureClass
+$ git clone https://github.com/dflick-pivotal/CloudNativeArchitectureClass
 $ git fetch --all
 $ git checkout scs_1.1
 ----
-
-=== Day One
-
-8:00 AM - 9:30 AM:: *Session 1:* _Cloud-Native Architecture Overview and Building Twelve-Factor Apps with Spring Boot_
-9:30 AM - 10:00 AM:: Morning Break
-10:00 AM - 11:30 AM:: *Session 2:* _Operating Twelve-Factor Apps with Cloud Foundry_
-11:30 PM - 12:30 PM:: Lunch
-12:30 PM - 3:00 PM:: *Session 3:* _Microservices with Polyglot Persistence: Part One_
-3:00 PM - 3:30 PM:: Afternoon Break
-3:30 PM - 5:00 PM:: *Session 4:* _Microservices with Polyglot Persistence: Part Two_
-
-=== Day Two
-
-8:00 AM - 9:30 AM:: *Session 5:* _Cloud-Native Architecture Patterns: Part One_
-9:30 AM - 10:00 AM:: Morning Break
-10:00 AM - 11:30 PM:: *Session 6:* _Cloud-Native Architecture Patterns: Part Two_
-11:30 PM - 12:30 PM:: Lunch
-12:30 PM - 3:00 PM:: *Session 7:* _Securing Cloud-Native Applications_
-3:00 PM - 3:30 PM:: Afternoon Break
-3:30 PM - 5:00 PM:: *Session 8:* _The API Gateway Pattern_
 
 == Course Materials
 
@@ -74,23 +54,4 @@ https://github.com/spring-cloud-samples/springbox-cloud
 ** link:day_01/session_04/lab_11/lab_11.html[Lab 11 - Build a Product Search/Details Service using MySql]
 ** link:day_01/session_04/lab_12/lab_12.html[Lab 12 - Build a Product Review Service with MongoDB]
 ** link:day_01/session_04/lab_13/lab_13.html[Lab 13 - Build a Product Recommendation Service with Neo4J]
-
-=== Day Two
-
-* Session 5 (link:day_02/session_05/session_05.pdf[Slides])
-** link:day_02/session_05/lab_14/lab_14.html[Lab 14 - Deploying and Using Spring Cloud Config Server]
-** link:day_02/session_05/lab_15/lab_15.html[Lab 15 - Refreshing Configuration with Spring Cloud Bus]
-** link:day_02/session_05/lab_16/lab_16.html[Lab 16 - Leveraging Eureka for Service Discovery via Spring Cloud Netflix]
-* Session 6 (link:day_02/session_06/session_06.pdf[Slides])
-** link:day_02/session_06/lab_17/lab_17.html[Lab 17 - Client-Side Load Balancing with Ribbon]
-** link:day_02/session_06/lab_18/lab_18.html[Lab 18 - Declarative REST Clients with Feign]
-** link:day_02/session_06/lab_19/lab_19.html[Lab 19 - Fault-Tolerance with Hystrix]
-** link:day_02/session_06/lab_20/lab_20.html[Lab 20 - Monitoring Circuit Breakers with Hystrix Dashboard]
-* Session 7 (link:day_02/session_07/session_07.pdf[Slides])
-** link:day_02/session_07/lab_21/lab_21.html[Lab 21 - Creating an OAuth2 Authorization Server]
-** link:day_02/session_07/lab_22/lab_22.html[Lab 22 - Securing a Resource Server with Spring Cloud Security]
-* Session 8 (link:day_02/session_08/session_08.pdf[Slides])
-** link:day_02/session_08/lab_23/lab_23.html[Lab 23 - Building a Simple Reverse Proxy with Zuul]
-** link:day_02/session_08/lab_24/lab_24.html[Lab 24 - API Aggregation and Transformation with RxJava]
-** link:day_02/session_08/lab_25/lab_25.html[Lab 25 - Implementing OAuth2 SSO in the API Gateway with Spring Cloud Security]
-** link:day_02/session_08/lab_26/lab_26.html[Lab 26 - Icing on the Cake: Adding the User Interface]
+** link:day_01/session_05/lab_14/lab_14.html[Lab 14 - Getting Started with Spring Cloud Stream]
