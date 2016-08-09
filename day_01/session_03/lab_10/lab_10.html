@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.4">
-<title>Lab 10 - Leveraging Spring Cloud Connectors for Service Binding</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
-<style>
-/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>lab_10.adoc</title>
+      <style>
+        #wrapper {width: 960px; margin: 0 auto;}
+        /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 /* Remove comment around @import statement below when using as a custom stylesheet */
 /*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
@@ -415,23 +411,44 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .print-only{display:block!important}
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
-</style>
-</head>
-<body class="article">
-<div id="header">
-<h1>Lab 10 - Leveraging Spring Cloud Connectors for Service Binding</h1>
-</div>
-<div id="content">
+
+      </style>
+      <link href='https://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/asciidoc.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/yaml.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/dockerfile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/makefile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/rust.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/haskell.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/typescript.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scss.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/less.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/handlebars.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/groovy.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scala.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/bash.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/ini.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+      <div id="wrapper">
+        <div class="article">
+          <h1>Lab 10 - Leveraging Spring Cloud Connectors for Service Binding</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this lab we&#8217;ll bind our RESTful web service from <a href="../lab_09/lab_09.html">Lab 9</a> to a MySQL database and leverage Spring Cloud Connectors to easily connect to it.</p>
+<p>In this lab we&#8217;ll bind our RESTful web service from <a href="../lab_09/lab_09.html">Lab 9</a> to a MySQL database and leverage <a href="http://cloud.spring.io/spring-cloud-connectors/spring-cloud-spring-service-connector.html">Spring Cloud Connectors</a> to easily connect to it.</p>
 </div>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 The completed code for this lab can be found at <code>$COURSE_HOME/day_01/session_03/lab_10/complete/cities</code>.
@@ -439,6 +456,13 @@ The completed code for this lab can be found at <code>$COURSE_HOME/day_01/sessio
 </tr>
 </table>
 </div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_using_spring_cloud_connectors">Using Spring Cloud Connectors</a></li>
+<li><a href="#_customizing_the_code_datasource_code">Customizing the <code>DataSource</code></a></li>
+</ul>
 </div>
 </div>
 <div class="sect1">
@@ -459,7 +483,7 @@ The completed code for this lab can be found at <code>$COURSE_HOME/day_01/sessio
 From the CLI, let&#8217;s <em>create</em> a MySQL service instance:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ cf cs p-mysql 100mb-dev cities-db
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ cf cs p-mysql 100mb-dev cities-db
 Creating service cities-db...
 OK</code></pre>
 </div>
@@ -469,7 +493,7 @@ OK</code></pre>
 <p>Next add the service to your application manifest, which will <em>bind</em> the service to our application on the next push. We&#8217;ll also add an environment variable to switch on the &#8220;cloud&#8221; profile,</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yml" data-lang="yml">---
+<pre class="highlightjs highlight"><code class="language-yml" data-lang="yml">---
 applications:
 - name: cities
   memory: 512M
@@ -487,17 +511,17 @@ applications:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ cf bind-service cities cities-db
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ cf bind-service cities cities-db
 Binding service cities-db to app cities...
 OK</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Next we&#8217;ll add Spring Cloud and MySQL dependencies to our Gradle build. Comment or remove the <code>hsqldb</code> line add add the following in the <code>dependencies</code> section:</p>
+<p>Next we&#8217;ll add Spring Cloud and MySQL dependencies to our Gradle build. Comment or remove the <code>hsqldb</code> line and add the following in the <code>dependencies</code> section:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">dependencies {
+<pre class="highlightjs highlight"><code class="language-groovy" data-lang="groovy">dependencies {
     // ....
     compile("org.springframework.cloud:spring-cloud-spring-service-connector:1.1.0.RELEASE")
     compile("org.springframework.cloud:spring-cloud-cloudfoundry-connector:1.1.0.RELEASE")
@@ -514,7 +538,7 @@ OK</code></pre>
 <p>Next, let&#8217;s create the package <code>org.example.cities.config</code> and create in that package the class <code>CloudDataSourceConfig</code>. Add the following code:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Profile("cloud")
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@Profile("cloud")
 @Configuration
 public class CloudDataSourceConfig extends AbstractCloudConfig {
     @Bean
@@ -538,7 +562,7 @@ public class CloudDataSourceConfig extends AbstractCloudConfig {
 <p>Add the following to <code>src/main/resources/application.properties</code> to cause Hibernate to create the database schema and import data at startup. This is done automatically for embedded databases, not for custom <code>DataSource</code>s. Other Hibernate native properties can be set in a similar fashion:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">spring.jpa.hibernate.ddl-auto=create</code></pre>
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">spring.jpa.hibernate.ddl-auto=create</code></pre>
 </div>
 </div>
 </li>
@@ -546,7 +570,7 @@ public class CloudDataSourceConfig extends AbstractCloudConfig {
 <p>Build the application:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ ./gradlew assemble</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ ./gradlew assemble</code></pre>
 </div>
 </div>
 </li>
@@ -554,7 +578,7 @@ public class CloudDataSourceConfig extends AbstractCloudConfig {
 <p>Re-push the application:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ cf push</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ cf push</code></pre>
 </div>
 </div>
 </li>
@@ -562,7 +586,7 @@ public class CloudDataSourceConfig extends AbstractCloudConfig {
 <p>Take a look at the <code>env</code> endpoint again to see the service bound in <code>VCAP_SERVICES</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl http://cities-colorado-contemplator.nyc.fe.gopivotal.com/env
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl http://cities-colorado-contemplator.nyc.fe.gopivotal.com/env
 ...
 "VCAP_SERVICES":"{\"p-mysql\":[{\"name\":\"cities-db\",\"label\":\"p-mysql\",\"tags\":[\"mysql\",\"relational\"],\"plan\":\"100mb-dev\",\"credentials\":{\"hostname\":\"10.68.106.85\",\"port\":3306,\"name\":\"cf_7a5601f9_32e3_41e1_b523_ed5ca96418f5\",\"username\":\"Vm2Z9D848eagt4rq\",\"password\":\"JgstkF06p2SOTlZg\",\"uri\":\"mysql://Vm2Z9D848eagt4rq:JgstkF06p2SOTlZg@10.68.106.85:3306/cf_7a5601f9_32e3_41e1_b523_ed5ca96418f5?reconnect=true\",\"jdbcUrl\":\"jdbc:mysql://10.68.106.85:3306/cf_7a5601f9_32e3_41e1_b523_ed5ca96418f5?user=Vm2Z9D848eagt4rq&amp;password=JgstkF06p2SOTlZg\"}}]}",
 ...</code></pre>
@@ -585,7 +609,7 @@ public class CloudDataSourceConfig extends AbstractCloudConfig {
 <p>You can customize the database connection that Spring Cloud creates with a few lines of code. Change the <code>dataSource</code> method in <code>CloudDataSourceConfig</code> to add some pooling and connection configuration:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Bean
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@Bean
 public DataSource dataSource() {
     PooledServiceConnectorConfig.PoolConfig poolConfig =
             new PooledServiceConnectorConfig.PoolConfig(5, 200);
@@ -603,7 +627,7 @@ public DataSource dataSource() {
 <p>Build the application:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ ./gradlew assemble</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ ./gradlew assemble</code></pre>
 </div>
 </div>
 </li>
@@ -611,7 +635,7 @@ public DataSource dataSource() {
 <p>Re-push the application:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ cf push</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ cf push</code></pre>
 </div>
 </div>
 </li>
@@ -619,11 +643,7 @@ public DataSource dataSource() {
 </div>
 </div>
 </div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2016-07-28 12:36:36 CEST
-</div>
-</div>
-</body>
-</html>
+        </div>
+      </div>
+    </body>
+  </html>

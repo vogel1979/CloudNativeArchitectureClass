@@ -1,5 +1,10 @@
-= Lab 1 - Getting Started with Spring Cloud Stream (http://docs.spring.io/spring-cloud-stream/docs/1.0.2.RELEASE/reference/htmlsingle/index.html#consumer-groups)
+= Lab 14 - Getting Started with Spring Cloud Stream
+
+NOTE: More info on Spring Cloud Stream can be found at http://docs.spring.io/spring-cloud-stream/docs/1.0.2.RELEASE/reference/htmlsingle/index.html
+
 This lab is to give you an idea about the stream processing capabilities with spring boot / spring cloud stream. Spring Cloud Stream is a crucial piece of Spring cloud Dataflow (http://docs.spring.io/spring-cloud-dataflow/docs/current/reference/html/). Both projects are to simplify stream processing of for example car data in the cloud with cloud native applications.
+
+NOTE: The completed code for this lab can be found at `$COURSE_HOME/day_01/session_05/lab_14/completed`.
 
 == Create sink and source project
 
@@ -120,16 +125,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class SensorDataController {
-	
+
 	@Autowired
 	SensorDataSource source;
-	
+
 	@RequestMapping(value = "/ingest", method = RequestMethod.POST, headers = "Accept=application/json")
 	public SensorData ingest(@RequestBody SensorData sensorData)
 	{
 	    source.ingest(sensorData);
-		return sensorData;	
-	}	
+		return sensorData;
+	}
 }
 ----
 
@@ -276,7 +281,7 @@ buildpack: java-buildpack=v3.8.1-offline-https://github.com/cloudfoundry/java-bu
 #0   running   2016-08-08 04:47:46 PM   217.4%   305M of 512M   142.2M of 1G----
 ----
 
-== Test your application
+== Test your application on PCF
 
 . Collect sink application logs
 
@@ -299,7 +304,7 @@ $ cf scale sink -i 2
 ----
 +
 
-. Have a look at the sink logs. What and why is this happening? 
+. Have a look at the sink logs. What and why is this happening?
 +
 ----
 2016-08-08T16:51:59.00+0200 [APP/0]      OUT 2016-08-08 14:51:59.001  INFO 28 --- [a.sensor-data-1] io.spring.pivotal.sensor.SensorDataSink  : Received: {"sensorId":1,"temperature":126.0}

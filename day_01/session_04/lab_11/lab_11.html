@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.4">
-<title>Lab 11 - Build a Product Search/Details Service using MySQL</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
-<style>
-/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>lab_11.adoc</title>
+      <style>
+        #wrapper {width: 960px; margin: 0 auto;}
+        /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 /* Remove comment around @import statement below when using as a custom stylesheet */
 /*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
@@ -415,17 +411,38 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .print-only{display:block!important}
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
-</style>
-</head>
-<body class="article">
-<div id="header">
-<h1>Lab 11 - Build a Product Search/Details Service using MySQL</h1>
-</div>
-<div id="content">
+
+      </style>
+      <link href='https://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/asciidoc.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/yaml.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/dockerfile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/makefile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/rust.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/haskell.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/typescript.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scss.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/less.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/handlebars.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/groovy.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scala.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/bash.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/ini.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+      <div id="wrapper">
+        <div class="article">
+          <h1>Lab 11 - Build a Product Search/Details Service using MySQL</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="quoteblock abstract">
-<blockquote>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>In this lab we&#8217;ll begin the first subproject of our complete cloud-native application architecture: <em>SpringBox</em>, which implements the movie browsing portion of a &#8220;Redbox-like&#8221; website.
 This microservice will provide the <em>Movie Catalog Service</em>, which will allow us to browse movies by genre, browse an individual movie&#8217;s details, and search for movies.</p>
@@ -433,13 +450,13 @@ This microservice will provide the <em>Movie Catalog Service</em>, which will al
 <div class="paragraph">
 <p>We&#8217;ll be using the <a href="http://grouplens.org/datasets/movielens/">MovieLens</a> dataset, and we&#8217;ll model it&#8217;s <code>Movie</code> and <code>Genre</code> concepts in this microservice.</p>
 </div>
-</blockquote>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 The completed code for this lab can be found at <code>$COURSE_HOME/day_01/session_04/lab_11/complete/springbox-catalog</code>.
@@ -447,6 +464,14 @@ The completed code for this lab can be found at <code>$COURSE_HOME/day_01/sessio
 </tr>
 </table>
 </div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_developing_the_service">Developing the Service</a></li>
+<li><a href="#_preparing_for_cloud_foundry">Preparing for Cloud Foundry</a></li>
+<li><a href="#_deploying_to_cloud_foundry">Deploying to Cloud Foundry</a></li>
+</ul>
 </div>
 </div>
 <div class="sect1">
@@ -469,10 +494,10 @@ The completed code for this lab can be found at <code>$COURSE_HOME/day_01/sessio
 <p>Start by adding a dependency on the <a href="http://hsqldb.org/">HyperSQL in-memory database</a> to <code>pom.xml</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre>&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
   &lt;groupId&gt;org.hsqldb&lt;/groupId&gt;
   &lt;artifactId&gt;hsqldb&lt;/artifactId&gt;
-&lt;/dependency&gt;</pre>
+&lt;/dependency&gt;</code></pre>
 </div>
 </div>
 </li>
@@ -480,7 +505,7 @@ The completed code for this lab can be found at <code>$COURSE_HOME/day_01/sessio
 <p>Create the package <code>io.springbox.catalog.domain</code> and in that package create the class <code>Genre</code>. Into that file you can paste the following source code, which models the MovieLens <code>Genre</code> concept:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@Entity
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@Entity
 @Table(name = "genres")
 public class Genre {
 
@@ -529,7 +554,7 @@ public class Genre {
     public void setMovies(List&lt;Movie&gt; movies) {
         this.movies = movies;
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -541,7 +566,7 @@ This class won&#8217;t compile just yet, and we&#8217;ll fix that in the next st
 <p>Also in the <code>io.springbox.catalog.domain</code> package,  create the class <code>Movie</code>. Into that file you can paste the following source code, which models the MovieLens <code>Movie</code> concept:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@Entity
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@Entity
 @Table(name = "movies")
 public class Movie {
 
@@ -595,7 +620,7 @@ public class Movie {
     public void setMlId(String mlId) {
         this.mlId = mlId;
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -607,9 +632,9 @@ At this point, both <code>Movie</code> and <code>Genre</code> should compile.</p
 <p>Create the package <code>io.springbox.catalog.repositories</code> and in that package create the interface <code>GenreRepository</code>. Paste the following code and add appropriate imports:</p>
 <div class="listingblock">
 <div class="content">
-<pre>public interface GenreRepository extends CrudRepository&lt;Genre, Long&gt; {
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">public interface GenreRepository extends CrudRepository&lt;Genre, Long&gt; {
     Genre findByMlId(String mlId);
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -617,9 +642,9 @@ At this point, both <code>Movie</code> and <code>Genre</code> should compile.</p
 <p>Also in the <code>io.springbox.catalog.repositories</code> package,  create the interface <code>MovieRepository</code>. Paste the following code and add appropriate imports:</p>
 <div class="listingblock">
 <div class="content">
-<pre>public interface MovieRepository extends CrudRepository&lt;Movie, Long&gt; {
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">public interface MovieRepository extends CrudRepository&lt;Movie, Long&gt; {
     public Movie findByMlId(String mlId);
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -627,7 +652,7 @@ At this point, both <code>Movie</code> and <code>Genre</code> should compile.</p
 <p>Create the package <code>io.springbox.catalog.controllers</code> and in that package create the class <code>GenreController</code>. Paste the following code and add appropriate imports:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@RestController
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@RestController
 public class GenreController {
 
     @Autowired
@@ -642,7 +667,7 @@ public class GenreController {
     public Genre genre(@PathVariable String mlId) {
         return genreRepository.findByMlId(mlId);
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -650,7 +675,7 @@ public class GenreController {
 <p>Also in the <code>io.springbox.catalog.controllers</code> package,  create the class <code>MovieController</code>. Paste the following code and add appropriate imports:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@RestController
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@RestController
 public class MovieController {
 
     @Autowired
@@ -665,7 +690,7 @@ public class MovieController {
     public Movie movie(@PathVariable String mlId) {
         return movieRepository.findByMlId(mlId);
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -673,14 +698,14 @@ public class MovieController {
 <p>Add the <code>@EnableJpaRepositories</code> annotation to <code>io.springbox.catalog.SpringboxCatalogApplication</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@SpringBootApplication
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@SpringBootApplication
 @EnableJpaRepositories // &lt;--- Add this!
 public class SpringboxCatalogApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringboxCatalogApplication.class, args);
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -689,7 +714,7 @@ public class SpringboxCatalogApplication {
 It contains the MovieLens dataset imports that we&#8217;ll be using (excerpt here):</p>
 <div class="listingblock">
 <div class="content">
-<pre>insert into genres (name,ml_id,id) values ('unknown',0,1000);
+<pre class="highlightjs highlight"><code class="language-sql" data-lang="sql">insert into genres (name,ml_id,id) values ('unknown',0,1000);
 insert into genres (name,ml_id,id) values ('Action',1,1001);
 insert into genres (name,ml_id,id) values ('Adventure',2,1002);
 insert into genres (name,ml_id,id) values ('Animation',3,1003);
@@ -722,7 +747,7 @@ insert into movies_genres(movie_id, genre_id) values (1002,1016);
 insert into movies(id,title,ml_id,number_in_stock) values (1003,'Get Shorty (1995)','4',10);
 insert into movies_genres(movie_id, genre_id) values (1003,1001);
 insert into movies_genres(movie_id, genre_id) values (1003,1005);
-insert into movies_genres(movie_id, genre_id) values (1003,1008);</pre>
+insert into movies_genres(movie_id, genre_id) values (1003,1008);</code></pre>
 </div>
 </div>
 </li>
@@ -746,7 +771,7 @@ insert into movies_genres(movie_id, genre_id) values (1003,1008);</pre>
 <p>Access the application using <code>curl</code> to make sure everything is working properly:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl -i localhost:8080/movies/1
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -i localhost:8080/movies/1
 HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8Date: Mon, 16 Feb 2015 03:38:42 GMTServer: Apache-Coyote/1.1
 Transfer-Encoding: chunked
@@ -773,7 +798,7 @@ X-Application-Context: application
     "id": 1000,
     "mlId": "1",
     "title": "Toy Story (1995)"
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -800,7 +825,7 @@ OK</pre>
 <p>Add the appropriate dependencies for MySQL&#8217;s JDBC driver and the Spring Cloud Connectors:</p>
 <div class="listingblock">
 <div class="content">
-<pre>&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
   &lt;groupId&gt;org.mariadb.jdbc&lt;/groupId&gt;
   &lt;artifactId&gt;mariadb-java-client&lt;/artifactId&gt;
   &lt;version&gt;1.1.7&lt;/version&gt;
@@ -812,7 +837,7 @@ OK</pre>
 &lt;dependency&gt;
   &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
   &lt;artifactId&gt;spring-cloud-spring-service-connector&lt;/artifactId&gt;
-&lt;/dependency&gt;</pre>
+&lt;/dependency&gt;</code></pre>
 </div>
 </div>
 </li>
@@ -825,7 +850,7 @@ This will allow us to run locally with HSQLDB and on PWS with PostgreSQL.</p>
 <p>Paste the following into <code>application.yml</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre>spring:
+<pre class="highlightjs highlight"><code class="language-yml" data-lang="yml">spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -842,7 +867,7 @@ spring:
 spring:
   profiles: cloud
   jpa:
-    database: MYSQL</pre>
+    database: MYSQL</code></pre>
 </div>
 </div>
 </li>
@@ -867,7 +892,7 @@ spring:
 <p>Create an application manifest in <code>manifest.yml</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yml" data-lang="yml">---
+<pre class="highlightjs highlight"><code class="language-yml" data-lang="yml">---
 applications:
 - name: springbox-catalog
   host: springbox-catalog-${random-word}
@@ -904,10 +929,10 @@ last uploaded: Mon Feb 16 19:34:38 UTC 2015
 </div>
 </li>
 <li>
-<p>Access the application using <code>curl</code> at the random route provided by CF:</p>
+<p>Access the application using <code>curl</code> at the random route provided by PCF:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl -i springbox-catalog-overwild-nonrevival.cfapps.io/movies/1
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -i springbox-catalog-overwild-nonrevival.cfapps.io/movies/1
 HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8Date: Mon, 16 Feb 2015 03:38:42 GMTServer: Apache-Coyote/1.1
 Transfer-Encoding: chunked
@@ -934,7 +959,7 @@ X-Application-Context: application
     "id": 1000,
     "mlId": "1",
     "title": "Toy Story (1995)"
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -942,11 +967,7 @@ X-Application-Context: application
 </div>
 </div>
 </div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2016-07-28 12:36:36 CEST
-</div>
-</div>
-</body>
-</html>
+        </div>
+      </div>
+    </body>
+  </html>

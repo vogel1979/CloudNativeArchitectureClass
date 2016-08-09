@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.4">
-<title>Lab 7 - Scaling Applications</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
-<style>
-/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>lab_07.adoc</title>
+      <style>
+        #wrapper {width: 960px; margin: 0 auto;}
+        /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 /* Remove comment around @import statement below when using as a custom stylesheet */
 /*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
@@ -415,25 +411,55 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .print-only{display:block!important}
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
-</style>
-</head>
-<body class="article">
-<div id="header">
-<h1>Lab 7 - Scaling Applications</h1>
-</div>
-<div id="content">
+
+      </style>
+      <link href='https://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/asciidoc.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/yaml.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/dockerfile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/makefile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/rust.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/haskell.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/typescript.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scss.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/less.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/handlebars.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/groovy.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scala.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/bash.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/ini.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+      <div id="wrapper">
+        <div class="article">
+          <h1>Lab 7 - Scaling Applications</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="quoteblock abstract">
-<blockquote>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>Cloud Foundry makes the work of horizontally scaling application instances and updating load balancer routing tables easy.</p>
 </div>
 <div class="paragraph">
 <p>In this lab, we&#8217;ll use a Spring Boot CLI app designed to illustrate Cloud Foundry operations such as scaling. In the case your PCF instance does not have internet access you could prebuilt the app local as a jar and push it afterwards. You could also use any other application you like for this lab (for example spring-music).</p>
 </div>
-</blockquote>
 </div>
+</div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#__optional_prebuilt_the_application_if_your_pcf_instance_does_not_have_internet_access">(Optional) Prebuilt the Application if your PCF instance does not have internet access</a></li>
+<li><a href="#_push_the_code_cf_scale_boot_code_application">Push the <code>cf-scale-boot</code> Application</a></li>
+<li><a href="#_scale_the_application_up">Scale the Application Up</a></li>
+<li><a href="#_scale_the_application_down">Scale the Application Down</a></li>
+</ul>
 </div>
 </div>
 <div class="sect1">
@@ -450,7 +476,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>Prebuilt the Application if your PCF instance does not have internet access (Install spring boot cli: <a href="http://docs.spring.io/autorepo/docs/spring-boot/1.1.4.RELEASE/reference/html/getting-started-installing-spring-boot.html#getting-started-installing-the-cli" class="bare">http://docs.spring.io/autorepo/docs/spring-boot/1.1.4.RELEASE/reference/html/getting-started-installing-spring-boot.html#getting-started-installing-the-cli</a>):</p>
+<p>Prebuilt the Application <em>if your PCF instance does not have internet access</em> (Install spring boot cli: <a href="http://docs.spring.io/autorepo/docs/spring-boot/1.1.4.RELEASE/reference/html/getting-started-installing-spring-boot.html#getting-started-installing-the-cli" class="bare">http://docs.spring.io/autorepo/docs/spring-boot/1.1.4.RELEASE/reference/html/getting-started-installing-spring-boot.html#getting-started-installing-the-cli</a>):</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ spring jar cf-scale-boot.jar app.groovy</pre>
@@ -495,7 +521,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 So, when the CLI indicates that application is up and running, visit its route in the browser:</p>
 <div class="imageblock">
 <div class="content">
-<img src="../../../Common/images/cf-scale-boot-initial.png" alt="cf scale boot initial">
+<img src="../../../Common/images/cf-scale-boot-initial.png" alt="cf scale boot initial.png">
 </div>
 </div>
 <div class="paragraph">
@@ -543,22 +569,24 @@ urls: cf-scale-boot-stockinged-rust.cfapps.io
 last uploaded: Fri Feb 13 18:56:29 UTC 2015
 
      state      since                    cpu    memory           disk
-#0   running    2015-02-13 12:57:10 PM   0.1%   404.8M of 512M   128.9M of 1G <b class="conum">(1)</b>
-#1   starting   2015-02-13 03:04:33 PM   0.0%   0 of 0           0 of 0 <b class="conum">(2)</b>
+#0   running    2015-02-13 12:57:10 PM   0.1%   404.8M of 512M   128.9M of 1G <i class="conum" data-value="1"></i><b>(1)</b>
+#1   starting   2015-02-13 03:04:33 PM   0.0%   0 of 0           0 of 0 <i class="conum" data-value="2"></i><b>(2)</b>
 #2   running    2015-02-13 03:04:47 PM   0.0%   398.7M of 512M   128.9M of 1G
 #3   starting   2015-02-13 03:04:33 PM   0.0%   0 of 0           0 of 0
 #4   starting   2015-02-13 03:04:33 PM   0.0%   0 of 0           0 of 0</pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>This application instance has completed the startup process and is actually able to accept requests.</p>
-</li>
-<li>
-<p>This application instance is still starting and will not have any requests routed to it.</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This application instance has completed the startup process and is actually able to accept requests.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>This application instance is still starting and will not have any requests routed to it.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -592,7 +620,7 @@ Refresh several times.
 You should observe the instance index and request counters changing as you do so:</p>
 <div class="imageblock">
 <div class="content">
-<img src="../../../Common/images/cf-scale-boot-scaled.png" alt="cf scale boot scaled">
+<img src="../../../Common/images/cf-scale-boot-scaled.png" alt="cf scale boot scaled.png">
 </div>
 </div>
 <div class="paragraph">
@@ -647,7 +675,7 @@ last uploaded: Fri Feb 13 18:56:29 UTC 2015
 <p>Confirm that by again revisiting the route in the browser and checking the instance index and request counter:</p>
 <div class="imageblock">
 <div class="content">
-<img src="../../../Common/images/cf-scale-boot-unscaled.png" alt="cf scale boot unscaled">
+<img src="../../../Common/images/cf-scale-boot-unscaled.png" alt="cf scale boot unscaled.png">
 </div>
 </div>
 </li>
@@ -655,11 +683,7 @@ last uploaded: Fri Feb 13 18:56:29 UTC 2015
 </div>
 </div>
 </div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2016-07-29 15:27:24 CEST
-</div>
-</div>
-</body>
-</html>
+        </div>
+      </div>
+    </body>
+  </html>

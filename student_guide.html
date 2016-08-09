@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.4">
-<title>Cloud Native Application Architectures with Spring and Cloud Foundry</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
-<style>
-/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>student_guide.adoc</title>
+      <style>
+        #wrapper {width: 960px; margin: 0 auto;}
+        /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 /* Remove comment around @import statement below when using as a custom stylesheet */
 /*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
@@ -415,18 +411,52 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .print-only{display:block!important}
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
-</style>
-</head>
-<body class="article">
-<div id="header">
-<h1>Cloud Native Application Architectures with Spring and Cloud Foundry</h1>
-</div>
-<div id="content">
+
+      </style>
+      <link href='https://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/asciidoc.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/yaml.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/dockerfile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/makefile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/rust.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/haskell.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/typescript.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scss.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/less.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/handlebars.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/groovy.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scala.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/bash.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/ini.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+      <div id="wrapper">
+        <div class="article">
+          <h1>Cloud Native Application Architectures with Spring and Cloud Foundry</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>Student Guide</p>
 </div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_instructor_details">Instructor Details</a></li>
+<li><a href="#_schedule">Schedule</a></li>
+<li><a href="#_course_materials">Course Materials</a>
+<ul class="sectlevel2">
+<li><a href="#_complete_reference_application">Complete Reference Application</a></li>
+<li><a href="#_day_one">Day One</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect1">
@@ -458,7 +488,7 @@ The overwhelming majority of our time will be spent engaging with the technology
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 We will be updating the course materials throughout the class. You will need to have the materials cloned and track the <code>scs_1.1</code> branch.
@@ -471,79 +501,9 @@ We will be updating the course materials throughout the class. You will need to 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ git clone https://github.com/vinayu/CloudNativeArchitectureClass
+<pre>$ git clone https://github.com/dflick-pivotal/CloudNativeArchitectureClass
 $ git fetch --all
 $ git checkout scs_1.1</pre>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_day_one">Day One</h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">8:00 AM - 9:30 AM</dt>
-<dd>
-<p><strong>Session 1:</strong> <em>Cloud-Native Architecture Overview and Building Twelve-Factor Apps with Spring Boot</em></p>
-</dd>
-<dt class="hdlist1">9:30 AM - 10:00 AM</dt>
-<dd>
-<p>Morning Break</p>
-</dd>
-<dt class="hdlist1">10:00 AM - 11:30 AM</dt>
-<dd>
-<p><strong>Session 2:</strong> <em>Operating Twelve-Factor Apps with Cloud Foundry</em></p>
-</dd>
-<dt class="hdlist1">11:30 PM - 12:30 PM</dt>
-<dd>
-<p>Lunch</p>
-</dd>
-<dt class="hdlist1">12:30 PM - 3:00 PM</dt>
-<dd>
-<p><strong>Session 3:</strong> <em>Microservices with Polyglot Persistence: Part One</em></p>
-</dd>
-<dt class="hdlist1">3:00 PM - 3:30 PM</dt>
-<dd>
-<p>Afternoon Break</p>
-</dd>
-<dt class="hdlist1">3:30 PM - 5:00 PM</dt>
-<dd>
-<p><strong>Session 4:</strong> <em>Microservices with Polyglot Persistence: Part Two</em></p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_day_two">Day Two</h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">8:00 AM - 9:30 AM</dt>
-<dd>
-<p><strong>Session 5:</strong> <em>Cloud-Native Architecture Patterns: Part One</em></p>
-</dd>
-<dt class="hdlist1">9:30 AM - 10:00 AM</dt>
-<dd>
-<p>Morning Break</p>
-</dd>
-<dt class="hdlist1">10:00 AM - 11:30 PM</dt>
-<dd>
-<p><strong>Session 6:</strong> <em>Cloud-Native Architecture Patterns: Part Two</em></p>
-</dd>
-<dt class="hdlist1">11:30 PM - 12:30 PM</dt>
-<dd>
-<p>Lunch</p>
-</dd>
-<dt class="hdlist1">12:30 PM - 3:00 PM</dt>
-<dd>
-<p><strong>Session 7:</strong> <em>Securing Cloud-Native Applications</em></p>
-</dd>
-<dt class="hdlist1">3:00 PM - 3:30 PM</dt>
-<dd>
-<p>Afternoon Break</p>
-</dd>
-<dt class="hdlist1">3:30 PM - 5:00 PM</dt>
-<dd>
-<p><strong>Session 8:</strong> <em>The API Gateway Pattern</em></p>
-</dd>
-</dl>
 </div>
 </div>
 </div>
@@ -558,7 +518,7 @@ $ git checkout scs_1.1</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_day_one_2">Day One</h3>
+<h3 id="_day_one">Day One</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -625,79 +585,8 @@ $ git checkout scs_1.1</pre>
 <li>
 <p><a href="day_01/session_04/lab_13/lab_13.html">Lab 13 - Build a Product Recommendation Service with Neo4J</a></p>
 </li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_day_two_2">Day Two</h3>
-<div class="ulist">
-<ul>
 <li>
-<p>Session 5 (<a href="day_02/session_05/session_05.pdf">Slides</a>)</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="day_02/session_05/lab_14/lab_14.html">Lab 14 - Deploying and Using Spring Cloud Config Server</a></p>
-</li>
-<li>
-<p><a href="day_02/session_05/lab_15/lab_15.html">Lab 15 - Refreshing Configuration with Spring Cloud Bus</a></p>
-</li>
-<li>
-<p><a href="day_02/session_05/lab_16/lab_16.html">Lab 16 - Leveraging Eureka for Service Discovery via Spring Cloud Netflix</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Session 6 (<a href="day_02/session_06/session_06.pdf">Slides</a>)</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="day_02/session_06/lab_17/lab_17.html">Lab 17 - Client-Side Load Balancing with Ribbon</a></p>
-</li>
-<li>
-<p><a href="day_02/session_06/lab_18/lab_18.html">Lab 18 - Declarative REST Clients with Feign</a></p>
-</li>
-<li>
-<p><a href="day_02/session_06/lab_19/lab_19.html">Lab 19 - Fault-Tolerance with Hystrix</a></p>
-</li>
-<li>
-<p><a href="day_02/session_06/lab_20/lab_20.html">Lab 20 - Monitoring Circuit Breakers with Hystrix Dashboard</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Session 7 (<a href="day_02/session_07/session_07.pdf">Slides</a>)</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="day_02/session_07/lab_21/lab_21.html">Lab 21 - Creating an OAuth2 Authorization Server</a></p>
-</li>
-<li>
-<p><a href="day_02/session_07/lab_22/lab_22.html">Lab 22 - Securing a Resource Server with Spring Cloud Security</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Session 8 (<a href="day_02/session_08/session_08.pdf">Slides</a>)</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="day_02/session_08/lab_23/lab_23.html">Lab 23 - Building a Simple Reverse Proxy with Zuul</a></p>
-</li>
-<li>
-<p><a href="day_02/session_08/lab_24/lab_24.html">Lab 24 - API Aggregation and Transformation with RxJava</a></p>
-</li>
-<li>
-<p><a href="day_02/session_08/lab_25/lab_25.html">Lab 25 - Implementing OAuth2 SSO in the API Gateway with Spring Cloud Security</a></p>
-</li>
-<li>
-<p><a href="day_02/session_08/lab_26/lab_26.html">Lab 26 - Icing on the Cake: Adding the User Interface</a></p>
+<p><a href="day_01/session_05/lab_14/lab_14.html">Lab 14 - Getting Started with Spring Cloud Stream</a></p>
 </li>
 </ul>
 </div>
@@ -707,11 +596,7 @@ $ git checkout scs_1.1</pre>
 </div>
 </div>
 </div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2016-07-29 14:19:41 CEST
-</div>
-</div>
-</body>
-</html>
+        </div>
+      </div>
+    </body>
+  </html>

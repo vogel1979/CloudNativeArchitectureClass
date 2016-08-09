@@ -1,7 +1,6 @@
 :compat-mode:
 = Lab 12 - Build a Product Review Service with MongoDB
 
-[abstract]
 --
 In this lab we'll begin the second subproject of our complete cloud-native application architecture: _SpringBox_, which implements the movie browsing portion of a ``Redbox-like'' website.
 This microservice will provide the _Movie Review Service_, which will allow us to create and browse reviews for movies.

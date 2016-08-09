@@ -1,9 +1,11 @@
-:compat-mode:
+
 = Lab 8 - Monitoring Applications
+
 
 Cloud Foundry provides several built-in mechanisms that allow us to monitor our applications' state changes and behavior.
 Additionally, Cloud Foundry actively monitors the health of our application processes and will restart them should they crash.
 In this lab, we'll explore a few of these mechanisms.
+
 
 == Events
 
@@ -159,7 +161,7 @@ Here are two interesting subsets of one output from that command:
 As you can see, Cloud Foundry's log aggregation components capture both application logs and CF component logs relevant to your application.
 These events are properly interleaved based on time, giving you an accurate picture of events as they transpired across the system.
 
-. To get a running ``tail'' of the application logs rather than a dump, simply type:
+. To get a running `tail` of the application logs rather than a dump, simply type:
 +
 ----
 $ cf logs cf-scale-boot
@@ -181,11 +183,11 @@ In this section, we'll drain logs to a very simple provider called https://paper
 +
 image::../../../Common/images/papertrail_1.png[]
 
-. Click on ``Alternatives'':
+. Click on `Alternatives`:
 +
 image::../../../Common/images/papertrail_2.png[]
 
-. Choose ``I use Heroku (now stating Cloud Foundry as well)'' and provide a name:
+. Choose `I use Heroku` (now stating Cloud Foundry as well) and provide a name:
 +
 image::../../../Common/images/papertrail_3.png[]
 
@@ -314,3 +316,9 @@ Really delete the service cf-scale-boot-logs?> y
 Deleting service cf-scale-boot-logs in org oreilly-class / space instructor as mstine@pivotal.io...
 OK
 ----
+
+== Using PCF Metrics
+
+Pivotal Cloud Foundry provides an own metrics service (to be installed on OpsManager) that provides you with the basic metric info that flows in on the second. More info can be found at http://docs.pivotal.io/pcf-metrics/using.html
+
+If you're running your application on Pivotal Web Services check the link:metrics.run.pivotal.io[Metrics] for your App!

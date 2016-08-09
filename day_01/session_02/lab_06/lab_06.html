@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.4">
-<title>Lab 6 - Binding to Cloud Foundry Services</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
-<style>
-/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>lab_06.adoc</title>
+      <style>
+        #wrapper {width: 960px; margin: 0 auto;}
+        /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 /* Remove comment around @import statement below when using as a custom stylesheet */
 /*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
@@ -415,17 +411,38 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .print-only{display:block!important}
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
-</style>
-</head>
-<body class="article">
-<div id="header">
-<h1>Lab 6 - Binding to Cloud Foundry Services</h1>
-</div>
-<div id="content">
+
+      </style>
+      <link href='https://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/asciidoc.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/yaml.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/dockerfile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/makefile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/rust.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/haskell.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/typescript.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scss.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/less.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/handlebars.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/groovy.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scala.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/bash.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/ini.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+      <div id="wrapper">
+        <div class="article">
+          <h1>Lab 6 - Binding to Cloud Foundry Services</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="quoteblock abstract">
-<blockquote>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The <em>Spring Music</em> application was designed to illustrate the ease with which various types of data services can be bound to and utilized by Spring applications running on Cloud Foundry.
 In this lab, we&#8217;ll be binding the application to both MySql databases.</p>
@@ -446,8 +463,17 @@ For a database this could mean creating/deleting a schema in an existing multite
 </dd>
 </dl>
 </div>
-</blockquote>
 </div>
+</div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_a_bit_of_review">A Bit of Review</a></li>
+<li><a href="#_the_services_marketplace">The Services Marketplace</a></li>
+<li><a href="#_creating_and_binding_to_a_service_instance">Creating and Binding to a Service Instance</a></li>
+<li><a href="#_clean_up">Clean Up</a></li>
+</ul>
 </div>
 </div>
 <div class="sect1">
@@ -459,7 +485,7 @@ Visit the application in your browser by hitting the route that was generated by
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../../../Common/images/Spring_Music_NS.png" alt="Spring Music NS">
+<img src="../../../Common/images/Spring_Music_NS.png" alt="Spring Music NS.png">
 </div>
 </div>
 <div class="paragraph">
@@ -488,12 +514,14 @@ The first is available on any instance of Cloud Foundry: the CLI. Just type:</p>
 If you haven&#8217;t already, login to it by visiting {CF-CONSOLE-URL}.</p>
 </div>
 <div class="paragraph">
-<p>Click on the &#8220;Marketplace&#8221; link:
-<em>The Screenshots below are from Pivotal Web Services (public managed Pivotal CF).  If you are using Pivotal Cloud Foundry, you will see something similar.</em></p>
+<p><em>The Screenshots below are from Pivotal Web Services (public managed Pivotal CF).  If you are using Pivotal Cloud Foundry, you will see something similar.</em></p>
+</div>
+<div class="paragraph">
+<p>Click on the &#8220;Marketplace&#8221; link:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../../../Common/images/PWS_AM_InstructorSpace.png" alt="PWS AM InstructorSpace">
+<img src="../../../Common/images/PWS_AM_InstructorSpace.png" alt="PWS AM InstructorSpace.png">
 </div>
 </div>
 <div class="paragraph">
@@ -501,7 +529,7 @@ If you haven&#8217;t already, login to it by visiting {CF-CONSOLE-URL}.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../../../Common/images/PWS_Marketplace.png" alt="PWS Marketplace">
+<img src="../../../Common/images/PWS_Marketplace.png" alt="PWS Marketplace.png">
 </div>
 </div>
 </div>
@@ -513,14 +541,8 @@ If you haven&#8217;t already, login to it by visiting {CF-CONSOLE-URL}.</p>
 <ol class="arabic">
 <li>
 <p>Let&#8217;s begin by creating a MySql instance provided by Pivotal.</p>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>From the CLI, let&#8217;s <em>create</em> a p-mysql service instance:</p>
-</div>
-<div class="paragraph">
-<p>+</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -529,8 +551,7 @@ Creating service spring-music-db in org ACME / space instructor as mstine@pivota
 OK</pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>Next we&#8217;ll <em>bind</em> the newly created instance to our <code>spring-music</code> application:</p>
 <div class="listingblock">
@@ -544,7 +565,7 @@ TIP: Use 'cf restage' to ensure your env variable changes take effect</pre>
 </li>
 <li>
 <p>Notice the admonition to <code>Use 'cf restage' to ensure your env variable changes take effect</code>.
-Let&#8217;s take a look at the environment variables for our application to see what&#8217;s been done. We can do this by typing:</p>
+Before that, let&#8217;s take a look at the environment variables for our application to see what&#8217;s been done so far. We can do this by typing:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ cf env spring-music</pre>
@@ -559,7 +580,7 @@ Let&#8217;s take a look at the environment variables for our application to see 
 <div class="content">
 <pre>System-Provided:
 {
- "VCAP_SERVICES": { <b class="conum">(1)</b>
+ "VCAP_SERVICES": { <i class="conum" data-value="1"></i><b>(1)</b>
   "p-mysql": [
    {
     "credentials": {
@@ -568,7 +589,7 @@ Let&#8217;s take a look at the environment variables for our application to see 
      "name": "cf_ddbe0221_d1fc_478f_b693_69279b2de702",
      "password": "CZImCZ9iSNU7HfP2",
      "port": 3306,
-     "uri": "mysql://mWsYAON34zbaQPAA:CZImCZ9iSNU7HfP2@10.68.50.61:3306/cf_ddbe0221_d1fc_478f_b693_69279b2de702?reconnect=true", <b class="conum">(2)</b>
+     "uri": "mysql://mWsYAON34zbaQPAA:CZImCZ9iSNU7HfP2@10.68.50.61:3306/cf_ddbe0221_d1fc_478f_b693_69279b2de702?reconnect=true", <i class="conum" data-value="2"></i><b>(2)</b>
      "username": "mWsYAON34zbaQPAA"
     },
     "label": "p-mysql",
@@ -608,14 +629,16 @@ Let&#8217;s take a look at the environment variables for our application to see 
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p><code>VCAP_SERVICES</code> is a special Cloud Foundry environment variable that contains a JSON document containing all of the information for any services bound to an application.</p>
-</li>
-<li>
-<p>Notice here the unique URI for this instance of MySql that <code>spring-music</code> has been bound to.</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>VCAP_SERVICES</code> is a special Cloud Foundry environment variable that contains a JSON document containing all of the information for any services bound to an application.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Notice here the unique URI for this instance of MySql that <code>spring-music</code> has been bound to.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -632,7 +655,7 @@ Let&#8217;s take a look at the environment variables for our application to see 
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../../../Common/images/Spring_Music_PGSQL.png" alt="Spring Music PGSQL">
+<img src="../../../Common/images/Spring_Music_PGSQL.png" alt="Spring Music PGSQL.png">
 </div>
 </div>
 <div class="paragraph">
@@ -697,17 +720,13 @@ OK</pre>
 </div>
 </div>
 </div>
-</div>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnote_1">
 <a href="#_footnoteref_1">1</a>. In this case, we could accomplish the same goal by only <em>restarting</em> the application via <code>cf restart spring-music</code>. A <em>restage</em> is generally recommended because Cloud Foundry buildpacks also have access to injected environment variables and can install or configure things differently based on their values.
 </div>
 </div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2016-07-29 14:41:58 CEST
-</div>
-</div>
-</body>
-</html>
+        </div>
+      </div>
+    </body>
+  </html>

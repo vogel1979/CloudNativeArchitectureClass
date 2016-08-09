@@ -1,7 +1,7 @@
 :compat-mode:
 = Lab 11 - Build a Product Search/Details Service using MySQL
 
-[abstract]
+
 --
 In this lab we'll begin the first subproject of our complete cloud-native application architecture: _SpringBox_, which implements the movie browsing portion of a ``Redbox-like'' website.
 This microservice will provide the _Movie Catalog Service_, which will allow us to browse movies by genre, browse an individual movie's details, and search for movies.
@@ -10,7 +10,6 @@ We'll be using the http://grouplens.org/datasets/movielens/[MovieLens] dataset, 
 --
 
 NOTE: The completed code for this lab can be found at `$COURSE_HOME/day_01/session_04/lab_11/complete/springbox-catalog`.
-
 
 == Developing the Service
 
@@ -420,7 +419,7 @@ last uploaded: Mon Feb 16 19:34:38 UTC 2015
 #0   running   2015-02-16 11:36:05 AM   0.0%   401.5M of 512M   127.5M of 1G
 ----
 
-. Access the application using `curl` at the random route provided by CF:
+. Access the application using `curl` at the random route provided by PCF:
 +
 [source,bash]
 ----

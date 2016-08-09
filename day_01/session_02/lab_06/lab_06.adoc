@@ -1,7 +1,6 @@
 :compat-mode:
 = Lab 6 - Binding to Cloud Foundry Services
 
-[abstract]
 --
 The _Spring Music_ application was designed to illustrate the ease with which various types of data services can be bound to and utilized by Spring applications running on Cloud Foundry.
 In this lab, we'll be binding the application to both MySql databases.

@@ -1,6 +1,5 @@
 = Lab 7 - Scaling Applications
 
-[abstract]
 --
 Cloud Foundry makes the work of horizontally scaling application instances and updating load balancer routing tables easy.
 
@@ -16,7 +15,7 @@ In this lab, we'll use a Spring Boot CLI app designed to illustrate Cloud Foundr
 $ cd $COURSE_HOME/day_01/session_02/lab_07/cf-scale-boot
 ----
 
-. Prebuilt the Application if your PCF instance does not have internet access (Install spring boot cli: http://docs.spring.io/autorepo/docs/spring-boot/1.1.4.RELEASE/reference/html/getting-started-installing-spring-boot.html#getting-started-installing-the-cli):
+. Prebuilt the Application _if your PCF instance does not have internet access_ (Install spring boot cli: http://docs.spring.io/autorepo/docs/spring-boot/1.1.4.RELEASE/reference/html/getting-started-installing-spring-boot.html#getting-started-installing-the-cli):
 +
 ----
 $ spring jar cf-scale-boot.jar app.groovy
@@ -152,4 +151,3 @@ As you can see, we're back down to only one instance running, and it is in fact 
 . Confirm that by again revisiting the route in the browser and checking the instance index and request counter:
 +
 image::../../../Common/images/cf-scale-boot-unscaled.png[]
-

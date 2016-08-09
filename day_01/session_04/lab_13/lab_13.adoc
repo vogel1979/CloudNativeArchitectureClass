@@ -1,15 +1,15 @@
 :compat-mode:
 = Lab 13 - Build a Product Recommendation Service with Neo4J
 
-[abstract]
 --
 In this lab we'll begin the second subproject of our complete cloud-native application architecture: _SpringBox_, which implements the movie browsing portion of a ``Redbox-like'' website.
 This microservice will provide the _Movie Recommendations Service_, which will allow us to create and browse reviews for movies.
 We'll be using Neo4J to model the relationship between people and the movies that they like.
 Neo4J provides a powerful graph query language called Cypher which will allow us to create a highly performant query that returns ``movies liked by people who liked the movie you're currently browsing.''
 
+////
 [graphviz, graph_diagram, png, align="center"]
-....
+----
 digraph {
   rankdir=LR;
   node [shape = circle];
@@ -20,7 +20,11 @@ digraph {
   "Person C" -> "Movie A" [ label = "Likes" ];
   "Person C" -> "Movie C" [ label = "Likes" ];
 }
-....
+----
+////
+
+
+image:graph_diagram.png[]
 
 We're still using the http://grouplens.org/datasets/movielens/[MovieLens] dataset, and here we'll link back to movies in the dataset by their `mlId` or ``MovieLens ID.''
 

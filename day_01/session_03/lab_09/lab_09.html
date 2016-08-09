@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.4">
-<title>Lab 9 - Build a Hypermedia-Driven RESTful Web Service with Spring Data REST</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
-<style>
-/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>lab_09.adoc</title>
+      <style>
+        #wrapper {width: 960px; margin: 0 auto;}
+        /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 /* Remove comment around @import statement below when using as a custom stylesheet */
 /*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
@@ -415,13 +411,34 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .print-only{display:block!important}
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
-</style>
-</head>
-<body class="article">
-<div id="header">
-<h1>Lab 9 - Build a Hypermedia-Driven RESTful Web Service with Spring Data REST</h1>
-</div>
-<div id="content">
+
+      </style>
+      <link href='https://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/asciidoc.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/yaml.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/dockerfile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/makefile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/rust.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/haskell.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/typescript.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scss.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/less.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/handlebars.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/groovy.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scala.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/bash.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/ini.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+      <div id="wrapper">
+        <div class="article">
+          <h1>Lab 9 - Build a Hypermedia-Driven RESTful Web Service with Spring Data REST</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -431,7 +448,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 The completed code for this lab can be found at <code>$COURSE_HOME/day_01/session_03/lab_09/complete/cities</code>.
@@ -439,6 +456,15 @@ The completed code for this lab can be found at <code>$COURSE_HOME/day_01/sessio
 </tr>
 </table>
 </div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_initializing_the_application">Initializing the Application</a></li>
+<li><a href="#_importing_data">Importing Data</a></li>
+<li><a href="#_adding_search">Adding Search</a></li>
+<li><a href="#_pushing_to_cloud_foundry">Pushing to Cloud Foundry</a></li>
+</ul>
 </div>
 </div>
 <div class="sect1">
@@ -461,7 +487,7 @@ The completed code for this lab can be found at <code>$COURSE_HOME/day_01/sessio
 <p>Add a runtime dependency on the <a href="http://hsqldb.org/">HyperSQL in-memory database</a> to <code>build.gradle</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">dependencies {
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">dependencies {
     // ...
     runtime("org.hsqldb:hsqldb")
 }</code></pre>
@@ -472,7 +498,7 @@ The completed code for this lab can be found at <code>$COURSE_HOME/day_01/sessio
 <p>Create the package <code>org.example.cities.domain</code> and in that package create the class <code>City</code>. Into that file you can paste the following source code, which represents cities based on postal codes, global coordinates, etc:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Entity
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@Entity
 @Table(name="city")
 public class City implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -537,9 +563,8 @@ public class City implements Serializable {
 <p>Create the package <code>org.example.cities.repositories</code> and in that package create the interface <code>CityRepository</code>. Paste the following code and add appropriate imports:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@RepositoryRestResource(collectionResourceRel = "cities", path = "cities")
-public interface CityRepository extends PagingAndSortingRepository&lt;City, Long&gt; {
-}</code></pre>
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@RepositoryRestResource(collectionResourceRel = "cities", path = "cities")
+public interface CityRepository extends PagingAndSortingRepository&lt;City, Long&gt; {}</code></pre>
 </div>
 </div>
 </li>
@@ -547,7 +572,7 @@ public interface CityRepository extends PagingAndSortingRepository&lt;City, Long
 <p>Add JPA and REST Repository support to the <code>org.example.cities.Application</code> class that was generated by Spring Initializr.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@SpringBootApplication
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@SpringBootApplication
 @EnableJpaRepositories // &lt;---- Add this
 @Import(RepositoryRestMvcConfiguration.class) // &lt;---- And this
 public class Application {
@@ -563,7 +588,7 @@ public class Application {
 <p>Build the application:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ ./gradlew assemble</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ ./gradlew assemble</code></pre>
 </div>
 </div>
 </li>
@@ -571,7 +596,7 @@ public class Application {
 <p>Run the application:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ java -jar build/libs/cities-0.0.1-SNAPSHOT.jar</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ java -jar build/libs/cities-0.0.1-SNAPSHOT.jar</code></pre>
 </div>
 </div>
 </li>
@@ -582,7 +607,7 @@ public class Application {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -i localhost:8080/cities
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -i localhost:8080/cities
 HTTP/1.1 200 OK
 Server: Apache-Coyote/1.1
 X-Application-Context: application
@@ -626,7 +651,7 @@ Date: Tue, 27 May 2014 19:34:45 GMT
 <p>Build the application:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ ./gradlew assemble</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ ./gradlew assemble</code></pre>
 </div>
 </div>
 </li>
@@ -634,7 +659,7 @@ Date: Tue, 27 May 2014 19:34:45 GMT
 <p>Run the application:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ java -jar build/libs/cities-0.0.1-SNAPSHOT.jar</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ java -jar build/libs/cities-0.0.1-SNAPSHOT.jar</code></pre>
 </div>
 </div>
 </li>
@@ -642,7 +667,7 @@ Date: Tue, 27 May 2014 19:34:45 GMT
 <p>Access the application again using <code>curl</code>. Notice the appropriate hypermedia is included for <code>next</code>, <code>previous</code>, and <code>self</code>. You can also select pages and page size by utilizing <code>?size=n&amp;page=n</code> on the URL string. Finally, you can sort the data utilizing <code>?sort=fieldName</code>.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -i localhost:8080/cities
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -i localhost:8080/cities
 HTTP/1.1 200 OK
 Server: Apache-Coyote/1.1
 X-Application-Context: application
@@ -705,13 +730,13 @@ Date: Tue, 27 May 2014 19:59:58 GMT
 <p>Try the following <code>curl</code> statements to see how the application behaves:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -i "localhost:8080/cities?size=5"
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -i "localhost:8080/cities?size=5"
 $ curl -i "localhost:8080/cities?size=5&amp;page=3"
 $ curl -i "localhost:8080/cities?sort=postalCode,desc"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Next we&#8217;ll add searching capabilities.</p>
+<p>In the next step we&#8217;ll add searching capabilities.</p>
 </div>
 </li>
 </ol>
@@ -727,7 +752,7 @@ $ curl -i "localhost:8080/cities?sort=postalCode,desc"</code></pre>
 <p>Let&#8217;s add some additional finder methods to <code>CityRepository</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@RestResource(path = "name", rel = "name")
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@RestResource(path = "name", rel = "name")
 Page&lt;City&gt; findByNameIgnoreCase(@Param("q") String name, Pageable pageable);
 
 @RestResource(path = "nameContains", rel = "nameContains")
@@ -745,7 +770,7 @@ Page&lt;City&gt; findByPostalCode(@Param("q") String postalCode, Pageable pageab
 <p>Build the application:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ ./gradlew assemble</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ ./gradlew assemble</code></pre>
 </div>
 </div>
 </li>
@@ -753,7 +778,7 @@ Page&lt;City&gt; findByPostalCode(@Param("q") String postalCode, Pageable pageab
 <p>Run the application:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ java -jar build/libs/cities-0.0.1-SNAPSHOT.jar</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ java -jar build/libs/cities-0.0.1-SNAPSHOT.jar</code></pre>
 </div>
 </div>
 </li>
@@ -761,7 +786,7 @@ Page&lt;City&gt; findByPostalCode(@Param("q") String postalCode, Pageable pageab
 <p>Access the application again using <code>curl</code>. Notice that hypermedia for a new <code>search</code> endpoint has appeared.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -i "localhost:8080/cities"
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -i "localhost:8080/cities"
 HTTP/1.1 200 OK
 Server: Apache-Coyote/1.1
 X-Application-Context: application
@@ -790,7 +815,7 @@ Date: Tue, 27 May 2014 20:33:52 GMT
 <p>Access the new <code>search</code> endpoint using <code>curl</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -i "localhost:8080/cities/search"
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -i "localhost:8080/cities/search"
 HTTP/1.1 200 OK
 Server: Apache-Coyote/1.1
 X-Application-Context: application
@@ -828,7 +853,7 @@ Date: Tue, 27 May 2014 20:38:32 GMT
 <p>Try a few of these endpoints. Feel free to substitute your own values for the parameters.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -i "http://localhost:8080/cities/search/postalCode?q=75202"
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -i "http://localhost:8080/cities/search/postalCode?q=75202"
 $ curl -i "http://localhost:8080/cities/search/name?q=Boston"
 $ curl -i "http://localhost:8080/cities/search/nameContains?q=Fort&amp;size=1"</code></pre>
 </div>
@@ -847,7 +872,7 @@ $ curl -i "http://localhost:8080/cities/search/nameContains?q=Fort&amp;size=1"</
 <p>Create an application manifest in <code>manifest.yml</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yml" data-lang="yml">---
+<pre class="highlightjs highlight"><code class="language-yml" data-lang="yml">---
 applications:
 - name: cities
   host: cities-${random-word}
@@ -862,7 +887,7 @@ applications:
 <p>Push to Cloud Foundry:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ cf push
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ cf push
 
 ...
 
@@ -887,7 +912,7 @@ urls: cities-undeliverable-iatrochemistry.cf.mycloud.com
 <p>Access the application at the random route provided by CF:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -i cities-undeliverable-iatrochemistry.cf.mycloud.com/cities</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -i cities-undeliverable-iatrochemistry.cf.mycloud.com/cities</code></pre>
 </div>
 </div>
 </li>
@@ -895,11 +920,7 @@ urls: cities-undeliverable-iatrochemistry.cf.mycloud.com
 </div>
 </div>
 </div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2016-07-28 12:36:36 CEST
-</div>
-</div>
-</body>
-</html>
+        </div>
+      </div>
+    </body>
+  </html>

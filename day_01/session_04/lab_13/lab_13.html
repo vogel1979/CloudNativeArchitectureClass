@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.4">
-<title>Lab 13 - Build a Product Recommendation Service with Neo4J</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
-<style>
-/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>lab_13.adoc</title>
+      <style>
+        #wrapper {width: 960px; margin: 0 auto;}
+        /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 /* Remove comment around @import statement below when using as a custom stylesheet */
 /*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
@@ -415,36 +411,46 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .print-only{display:block!important}
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
-</style>
-</head>
-<body class="article">
-<div id="header">
-<h1>Lab 13 - Build a Product Recommendation Service with Neo4J</h1>
-</div>
-<div id="content">
+
+      </style>
+      <link href='https://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/asciidoc.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/yaml.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/dockerfile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/makefile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/rust.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/haskell.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/typescript.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scss.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/less.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/handlebars.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/groovy.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scala.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/bash.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/ini.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+      <div id="wrapper">
+        <div class="article">
+          <h1>Lab 13 - Build a Product Recommendation Service with Neo4J</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="quoteblock abstract">
-<blockquote>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>In this lab we&#8217;ll begin the second subproject of our complete cloud-native application architecture: <em>SpringBox</em>, which implements the movie browsing portion of a &#8220;Redbox-like&#8221; website.
 This microservice will provide the <em>Movie Recommendations Service</em>, which will allow us to create and browse reviews for movies.
 We&#8217;ll be using Neo4J to model the relationship between people and the movies that they like.
 Neo4J provides a powerful graph query language called Cypher which will allow us to create a highly performant query that returns &#8220;movies liked by people who liked the movie you&#8217;re currently browsing.&#8221;</p>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>digraph {
-  rankdir=LR;
-  node [shape = circle];
-  "Person A" -&gt; "Movie A" [ label = "Likes" ];
-  "Person A" -&gt; "Movie B" [ label = "Likes" ];
-  "Person A" -&gt; "Movie C" [ label = "Likes" ];
-  "Person B" -&gt; "Movie B" [ label = "Likes" ];
-  "Person C" -&gt; "Movie A" [ label = "Likes" ];
-  "Person C" -&gt; "Movie C" [ label = "Likes" ];
-}</pre>
-</div>
+<div class="paragraph">
+<p><span class="image"><img src="graph_diagram.png" alt="graph diagram.png"></span></p>
 </div>
 <div class="paragraph">
 <p>We&#8217;re still using the <a href="http://grouplens.org/datasets/movielens/">MovieLens</a> dataset, and here we&#8217;ll link back to movies in the dataset by their <code>mlId</code> or &#8220;MovieLens ID.&#8221;</p>
@@ -452,13 +458,13 @@ Neo4J provides a powerful graph query language called Cypher which will allow us
 <div class="paragraph">
 <p>This project comes with vendored source for a Spring Cloud Connector for Neo4J, as that connector has not yet been released as part of the core project.</p>
 </div>
-</blockquote>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 The completed code for this lab can be found at <code>$COURSE_HOME/day_01/session_04/lab_13/complete/springbox-recommendations</code>.
@@ -466,6 +472,14 @@ The completed code for this lab can be found at <code>$COURSE_HOME/day_01/sessio
 </tr>
 </table>
 </div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_developing_the_service">Developing the Service</a></li>
+<li><a href="#_preparing_for_cloud_foundry">Preparing for Cloud Foundry</a></li>
+<li><a href="#_deploying_to_cloud_foundry">Deploying to Cloud Foundry</a></li>
+</ul>
 </div>
 </div>
 <div class="sect1">
@@ -488,7 +502,7 @@ The completed code for this lab can be found at <code>$COURSE_HOME/day_01/sessio
 <p>Create the package <code>io.springbox.recommendations.domain</code> and in that package create the class <code>Movie</code>. Into that file you can paste the following source code:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@NodeEntity
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@NodeEntity
 public class Movie {
 
     @GraphId
@@ -530,7 +544,7 @@ public class Movie {
     public void setTitle(String title) {
         this.title = title;
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -538,7 +552,7 @@ public class Movie {
 <p>Also in the package <code>io.springbox.recommendations.domain</code> create the class <code>Person</code>. Into that file you can paste the following source code:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@NodeEntity
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@NodeEntity
 public class Person {
 
     @GraphId
@@ -588,7 +602,7 @@ public class Person {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -596,7 +610,7 @@ public class Person {
 <p>Also in the package <code>io.springbox.recommendations.domain</code> create the class <code>Likes</code>. Into that file you can paste the following source code:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@RelationshipEntity(type = "LIKES")
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@RelationshipEntity(type = "LIKES")
 public class Likes {
 
     @GraphId
@@ -640,7 +654,7 @@ public class Likes {
                 ", movie=" + movie +
                 '}';
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -648,7 +662,7 @@ public class Likes {
 <p>Create the package <code>io.springbox.recommendations.repositories</code> and in that package create the interface <code>MovieRepository</code>. Into that file you can paste the following source code:</p>
 <div class="listingblock">
 <div class="content">
-<pre>public interface MovieRepository extends GraphRepository&lt;Movie&gt; {
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">public interface MovieRepository extends GraphRepository&lt;Movie&gt; {
     Movie findByMlId(String mlId);
 
     @Query("MATCH (p:Person) WHERE p.userName = {0} MATCH p-[:LIKES]-&gt;movie&lt;-[:LIKES]-slm-[:LIKES]-&gt;recommendations " +
@@ -658,26 +672,26 @@ public class Likes {
     @Query("MATCH (movie:Movie) WHERE movie.mlId = {0} MATCH movie&lt;-[:LIKES]-slm-[:LIKES]-&gt;recommendations " +
     "RETURN distinct recommendations")
     Iterable&lt;Movie&gt; moviesLikedByPeopleWhoLiked(String mlId);
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Also in the package <code>io.springbox.recommendations.repositories</code> create the interface <code>PersonRepository</code>. Into that file you can paste the following source code:</p>
+<p>In the same package <code>io.springbox.recommendations.repositories</code> create the interface <code>PersonRepository</code>. Into that file you can paste the following source code:</p>
 <div class="listingblock">
 <div class="content">
-<pre>public interface PersonRepository extends GraphRepository&lt;Person&gt; {
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">public interface PersonRepository extends GraphRepository&lt;Person&gt; {
     Person findByUserName(String userName);
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Also in the package <code>io.springbox.recommendations.repositories</code> create the interface <code>LikesRepository</code>. Into that file you can paste the following source code:</p>
+<p>Again in the package <code>io.springbox.recommendations.repositories</code> create the interface <code>LikesRepository</code>. Into that file you can paste the following source code:</p>
 <div class="listingblock">
 <div class="content">
-<pre>public interface LikesRepository extends GraphRepository&lt;Likes&gt; {
-}</pre>
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">public interface LikesRepository extends GraphRepository&lt;Likes&gt; {
+}</code></pre>
 </div>
 </div>
 </li>
@@ -685,7 +699,7 @@ public class Likes {
 <p>Create the package <code>io.springbox.recommendations.controllers</code> and in that package create the class <code>MovieController</code>. Into that file you can paste the following source code:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@RestController
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@RestController
 public class MovieController {
 
     @Autowired
@@ -701,15 +715,15 @@ public class MovieController {
         movieRepository.save(movie);
         return new ResponseEntity&lt;&gt;(movie, HttpStatus.CREATED);
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Also in the package <code>io.springbox.recommendations.controllers</code> create the class <code>PersonController</code>. Into that file you can paste the following source code:</p>
+<p>Again in the package <code>io.springbox.recommendations.controllers</code> create the class <code>PersonController</code>. Into that file you can paste the following source code:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@RestController
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@RestController
 public class PersonController {
 
     @Autowired
@@ -726,7 +740,7 @@ public class PersonController {
         return new ResponseEntity&lt;&gt;(person, HttpStatus.CREATED);
     }
 
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -734,7 +748,7 @@ public class PersonController {
 <p>Also in the package <code>io.springbox.recommendations.controllers</code> create the class <code>LikesController</code>. Into that file you can paste the following source code:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@RestController
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@RestController
 public class LikesController {
 
     @Autowired
@@ -744,7 +758,7 @@ public class LikesController {
     public Iterable&lt;Likes&gt; likes() {
         return likesRepository.findAll();
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -752,7 +766,7 @@ public class LikesController {
 <p>Also in the package <code>io.springbox.recommendations.controllers</code> create the class <code>RecommendationsController</code>. Into that file you can paste the following source code:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@RestController
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@RestController
 public class RecommendationsController {
 
     @Autowired
@@ -785,7 +799,7 @@ public class RecommendationsController {
     public Iterable&lt;Movie&gt; recommendedMoviesForMovie(@PathVariable String mlId) {
         return movieRepository.moviesLikedByPeopleWhoLiked(mlId);
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -793,12 +807,12 @@ public class RecommendationsController {
 <p>Create the package <code>io.springbox.recommendations.config</code> and in that package create the class <code>Neo4jConfig</code>. Into that file you can paste the following source code:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@Configuration
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@Configuration
 public class Neo4jConfig extends Neo4jConfiguration {
     public Neo4jConfig() {
         setBasePackage("io.springbox.recommendations.domain");
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -806,7 +820,7 @@ public class Neo4jConfig extends Neo4jConfiguration {
 <p>Also in the package <code>io.springbox.recommendations.config</code> create the class <code>LocalConfig</code>. Into that file you can paste the following source code:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@Configuration
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@Configuration
 @Profile("default")
 public class LocalConfig {
 
@@ -815,7 +829,7 @@ public class LocalConfig {
         return new SpringRestGraphDatabase("http://localhost:7474/db/data/");
     }
 
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -823,14 +837,14 @@ public class LocalConfig {
 <p>Add the <code>@EnableNeo4jRepositories</code> annotation to <code>io.springbox.recommendations.SpringboxRecommendationsApplication</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@SpringBootApplication
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@SpringBootApplication
 @EnableNeo4jRepositories(basePackages = "io.springbox.recommendations.repositories") // &lt;--- Add this!
 public class SpringboxRecommendationsApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringboxRecommendationsApplication.class, args);
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -838,7 +852,7 @@ public class SpringboxRecommendationsApplication {
 <p>Add the following to <code>application.properties</code>&#8201;&#8212;&#8201;we&#8217;ll eventually want to run multiple apps locally, so we need to change the port:</p>
 <div class="listingblock">
 <div class="content">
-<pre>server.port=8082</pre>
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">server.port=8082</code></pre>
 </div>
 </div>
 </li>
@@ -876,7 +890,7 @@ LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/mstine/CloudNative
 <p>Access the application using <code>curl</code> to make sure everything is working properly:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl -i localhost:8082/recommendations/forMovie/1
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -i localhost:8082/recommendations/forMovie/1
 HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Date: Tue, 17 Feb 2015 06:02:10 GMT
@@ -890,7 +904,7 @@ X-Application-Context: application:8082
         "mlId": "2",
         "title": "GoldenEye (1995)"
     }
-]</pre>
+]</code></pre>
 </div>
 </div>
 </li>
@@ -913,7 +927,7 @@ X-Application-Context: application:8082
 <p>In the package <code>io.springbox.recommendations.config</code> create the class <code>CloudConfig</code>. Into that file you can paste the following source code:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@Configuration
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@Configuration
 @Profile("cloud")
 public class CloudConfig extends AbstractCloudConfig {
 
@@ -921,7 +935,7 @@ public class CloudConfig extends AbstractCloudConfig {
     GraphDatabaseService graphDatabaseService() {
         return connectionFactory().service(GraphDatabaseService.class);
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -946,7 +960,7 @@ public class CloudConfig extends AbstractCloudConfig {
 <p>Create an application manifest in <code>manifest.yml</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yml" data-lang="yml">---
+<pre class="highlightjs highlight"><code class="language-yml" data-lang="yml">---
 applications:
 - name: springbox-recommendations
   host: springbox-recommendations-${random-word}
@@ -989,7 +1003,7 @@ last uploaded: Tue Feb 17 05:40:41 UTC 2015
 <p>Access the application using <code>curl</code> to make sure everything is working properly:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl -i springbox-recommendations-preadherent-werewolf.cfapps.io/recommendations/forMovie/1
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -i springbox-recommendations-preadherent-werewolf.cfapps.io/recommendations/forMovie/1
 HTTP/1.1 200 OK
 Connection: keep-alive
 Content-Length: 48
@@ -1006,7 +1020,7 @@ X-Cf-Requestid: 3e9bcafd-e4cc-4047-7355-bad9c84b3b4e
         "mlId": "2",
         "title": "GoldenEye (1995)"
     }
-]</pre>
+]</code></pre>
 </div>
 </div>
 </li>
@@ -1014,11 +1028,7 @@ X-Cf-Requestid: 3e9bcafd-e4cc-4047-7355-bad9c84b3b4e
 </div>
 </div>
 </div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2016-07-28 12:36:36 CEST
-</div>
-</div>
-</body>
-</html>
+        </div>
+      </div>
+    </body>
+  </html>

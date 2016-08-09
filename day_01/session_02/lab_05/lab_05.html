@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.4">
-<title>Lab 5 - From Zero to Pushing Your First Application</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
-<style>
-/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>lab_05.adoc</title>
+      <style>
+        #wrapper {width: 960px; margin: 0 auto;}
+        /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 /* Remove comment around @import statement below when using as a custom stylesheet */
 /*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
@@ -415,15 +411,62 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .print-only{display:block!important}
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
-</style>
-</head>
-<body class="article">
-<div id="header">
-<h1>Lab 5 - From Zero to Pushing Your First Application</h1>
+
+      </style>
+      <link href='https://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/asciidoc.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/yaml.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/dockerfile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/makefile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/rust.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/haskell.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/typescript.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scss.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/less.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/handlebars.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/groovy.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scala.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/bash.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/ini.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+      <div id="wrapper">
+        <div class="article">
+          <h1>Lab 5 - From Zero to Pushing Your First Application</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this Lab, we&#8217;ll use an existing Spring-Boot Application and push it to Pivotal Cloud Foundry. You will learn about the stages of deployment and the techniques used by Cloud Foundry. Finally you will see you application running on Pivotal Cloud Foundry.</p>
 </div>
-<div id="content">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The completed code for this lab can be found at <code>$COURSE_HOME/day_01/session_02/lab_05/spring-music</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_setup_the_proxy">Setup the proxy</a></li>
+<li><a href="#_build_and_push">Build and Push!</a></li>
+</ul>
+</div>
+</div>
 <div class="sect1">
-<h2 id="_setup">Setup</h2>
+<h2 id="_setup_the_proxy">Setup the proxy</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -516,35 +559,35 @@ systemProp.https.proxyPassword=password</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>Using manifest file /Users/pivotal/mstine/2015/OReilly/CloudNativeArchitectureClass/day_01/session_02/lab_05/spring-music/manifest.yml <b class="conum">(1)</b>
+<pre>Using manifest file /Users/pivotal/mstine/2015/OReilly/CloudNativeArchitectureClass/day_01/session_02/lab_05/spring-music/manifest.yml <i class="conum" data-value="1"></i><b>(1)</b>
 
 Creating app spring-music in org oreilly-class / space instructor as mstine@pivotal.io...
-OK <b class="conum">(2)</b>
+OK <i class="conum" data-value="2"></i><b>(2)</b>
 
 Creating route spring-music-hippest-shaman.cfapps.io...
-OK <b class="conum">(3)</b>
+OK <i class="conum" data-value="3"></i><b>(3)</b>
 
 Binding spring-music-hippest-shaman.cfapps.io to spring-music...
-OK <b class="conum">(4)</b>
+OK <i class="conum" data-value="4"></i><b>(4)</b>
 
-Uploading spring-music... <b class="conum">(5)</b>
+Uploading spring-music... <i class="conum" data-value="5"></i><b>(5)</b>
 Uploading app files from: /Users/pivotal/mstine/2015/OReilly/CloudNativeArchitectureClass/day_01/session_02/lab_05/spring-music/build/libs/spring-music.war
 Uploading 569.7K, 90 files
 Done uploading
 OK
 
-Starting app spring-music in org oreilly-class / space instructor as mstine@pivotal.io... <b class="conum">(6)</b>
+Starting app spring-music in org oreilly-class / space instructor as mstine@pivotal.io... <i class="conum" data-value="6"></i><b>(6)</b>
 -----&gt; Downloaded app package (21M)
 -----&gt; Java Buildpack Version: v2.6.1 |  https://github.com/cloudfoundry/java-buildpack.git#2d92e70
 -----&gt; Downloading Open Jdk JRE 1.8.0_31 from https://download.run.pivotal.io/openjdk/lucid/x86_64/openjdk-1.8.0_31.tar.gz (1.3s)
-       Expanding Open Jdk JRE to .java-buildpack/open_jdk_jre (1.2s) <b class="conum">(7)</b>
+       Expanding Open Jdk JRE to .java-buildpack/open_jdk_jre (1.2s) <i class="conum" data-value="7"></i><b>(7)</b>
 -----&gt; Downloading Spring Auto Reconfiguration 1.7.0_RELEASE from https://download.run.pivotal.io/auto-reconfiguration/auto-reconfiguration-1.7.0_RELEASE.jar (0.1s)
 -----&gt; Downloading Tomcat Instance 8.0.18 from https://download.run.pivotal.io/tomcat/tomcat-8.0.18.tar.gz (0.4s)
-       Expanding Tomcat to .java-buildpack/tomcat (0.1s) <b class="conum">(8)</b>
+       Expanding Tomcat to .java-buildpack/tomcat (0.1s) <i class="conum" data-value="8"></i><b>(8)</b>
 -----&gt; Downloading Tomcat Lifecycle Support 2.4.0_RELEASE from https://download.run.pivotal.io/tomcat-lifecycle-support/tomcat-lifecycle-support-2.4.0_RELEASE.jar (0.0s)
 -----&gt; Downloading Tomcat Logging Support 2.4.0_RELEASE from https://download.run.pivotal.io/tomcat-logging-support/tomcat-logging-support-2.4.0_RELEASE.jar (0.0s)
 -----&gt; Downloading Tomcat Access Logging Support 2.4.0_RELEASE from https://download.run.pivotal.io/tomcat-access-logging-support/tomcat-access-logging-support-2.4.0_RELEASE.jar (0.0s)
------&gt; Uploading droplet (66M) <b class="conum">(9)</b>
+-----&gt; Uploading droplet (66M) <i class="conum" data-value="9"></i><b>(9)</b>
 
 0 of 1 instances running, 1 starting
 1 of 1 instances running
@@ -554,9 +597,9 @@ App started
 
 OK
 
-App spring-music was started using this command `JAVA_HOME=$PWD/.java-buildpack/open_jdk_jre JAVA_OPTS="-Djava.io.tmpdir=$TMPDIR -XX:OnOutOfMemoryError=$PWD/.java-buildpack/open_jdk_jre/bin/killjava.sh -Xmx382293K -Xms382293K -XX:MaxMetaspaceSize=64M -XX:MetaspaceSize=64M -Xss995K -Daccess.logging.enabled=false -Dhttp.port=$PORT" $PWD/.java-buildpack/tomcat/bin/catalina.sh run` <b class="conum">(10)</b>
+App spring-music was started using this command `JAVA_HOME=$PWD/.java-buildpack/open_jdk_jre JAVA_OPTS="-Djava.io.tmpdir=$TMPDIR -XX:OnOutOfMemoryError=$PWD/.java-buildpack/open_jdk_jre/bin/killjava.sh -Xmx382293K -Xms382293K -XX:MaxMetaspaceSize=64M -XX:MetaspaceSize=64M -Xss995K -Daccess.logging.enabled=false -Dhttp.port=$PORT" $PWD/.java-buildpack/tomcat/bin/catalina.sh run` <i class="conum" data-value="10"></i><b>(10)</b>
 
-Showing health and status for app spring-music in org oreilly-class / space instructor as mstine@pivotal.io... <b class="conum">(11)</b>
+Showing health and status for app spring-music in org oreilly-class / space instructor as mstine@pivotal.io... <i class="conum" data-value="11"></i><b>(11)</b>
 OK
 
 requested state: started
@@ -570,73 +613,80 @@ last uploaded: Fri Feb 13 15:43:08 UTC 2015
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>The CLI is using a manifest to provide necessary configuration details such as application name, memory to be allocated, and path to the application artifact.
-Take a look at <code>manifest.yml</code> to see how.</p>
-</li>
-<li>
-<p>In most cases, the CLI indicates each Cloud Foundry API call as it happens.
-In this case, the CLI has created an application record for <em>Spring Music</em> in your assigned space.</p>
-</li>
-<li>
-<p>All HTTP/HTTPS requests to applications will flow through Cloud Foundry&#8217;s front-end router called <a href="http://docs.cloudfoundry.org/concepts/architecture/router.html">(Go)Router</a>.
-Here the CLI is creating a route with random word tokens inserted (again, see <code>manifest.yml</code> for a hint!) to prevent route collisions across the default <code>cfapps.io</code> domain.</p>
-</li>
-<li>
-<p>Now the CLI is <em>binding</em> the created route to the application.
-Routes can actually be bound to multiple applications to support techniques such as <a href="http://www.mattstine.com/2013/07/10/blue-green-deployments-on-cloudfoundry">blue-green deployments</a>.</p>
-</li>
-<li>
-<p>The CLI finally uploads the application bits to PWS. Notice that it&#8217;s uploading <em>90 files</em>! This is because Cloud Foundry actually explodes a ZIP artifact before uploading it for caching purposes.</p>
-</li>
-<li>
-<p>Now we begin the staging process. The <a href="https://github.com/cloudfoundry/java-buildpack">Java Buildpack</a> is responsible for assembling the runtime components necessary to run the application.</p>
-</li>
-<li>
-<p>Here we see the version of the JRE that has been chosen and installed.</p>
-</li>
-<li>
-<p>And here we see the version of Tomcat that has been chosen and installed.</p>
-</li>
-<li>
-<p>The complete package of your application and all of its necessary runtime components is called a <em>droplet</em>.
-Here the droplet is being uploaded to PWS&#8217;s internal blobstore so that it can be easily copied to one or more <em><a href="http://docs.cloudfoundry.org/concepts/architecture/execution-agent.html">Droplet Execution Agents (DEA&#8217;s)</a></em> for execution.</p>
-</li>
-<li>
-<p>The CLI tells you exactly what command and argument set was used to start your application.</p>
-</li>
-<li>
-<p>Finally the CLI reports the current status of your application&#8217;s health.
-You can get the same output at any time by typing <code>cf app spring-music</code>.</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The CLI is using a manifest to provide necessary configuration details such as application name, memory to be allocated, and path to the application artifact.
+Take a look at <a href="./spring-music/manifest.yml">manifest.yml</a> to see how.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>In most cases, the CLI indicates each Cloud Foundry API call as it happens.
+In this case, the CLI has created an application record for <em>Spring Music</em> in your assigned space.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>All HTTP/HTTPS requests to applications will flow through Cloud Foundry&#8217;s front-end router called <a href="http://docs.pivotal.io/pivotalcf/1-7/concepts/architecture/router.html">(Go)Router</a>.
+Here the CLI is creating a route with random word tokens inserted (again, see <a href="./spring-music/manifest.yml">manifest.yml</a> for a hint!) to prevent route collisions across the default <code>cfapps.io</code> domain.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Now the CLI is <em>binding</em> the created route to the application.
+Routes can actually be bound to multiple applications to support techniques such as <a href="http://www.mattstine.com/2013/07/10/blue-green-deployments-on-cloudfoundry">blue-green deployments</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>The CLI finally uploads the application bits to Pivotal Web Services (PWS). Notice that it&#8217;s uploading <em>90 files</em>! This is because Cloud Foundry actually explodes a ZIP artifact before uploading it for caching purposes.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Now we begin the staging process. The <a href="https://github.com/cloudfoundry/java-buildpack">Java Buildpack</a> is responsible for assembling the runtime components necessary to run the application.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Here we see the version of the JRE that has been chosen and installed.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>And here we see the version of Tomcat that has been chosen and installed.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>The complete package of your application and all of its necessary runtime components is called a <em>droplet</em>.
+Here the droplet is being uploaded to PWS&#8217;s internal blobstore so that it can be easily copied to one or more <em><a href="http://docs.pivotal.io/pivotalcf/1-7/concepts/architecture/execution-agent.html">Droplet Execution Agents (DEA&#8217;s)</a></em> for execution.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td>The CLI tells you exactly what command and argument set was used to start your application.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="11"></i><b>11</b></td>
+<td>Finally the CLI reports the current status of your application&#8217;s health.
+You can get the same output at any time by typing <code>cf app spring-music</code>.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 </li>
 <li>
-<p>Visit the application in your browser by hitting the route that was generated by the CLI:</p>
+<p>Visit the application in your browser by hitting the route that was generated by the CLI, in our case this would be <code>spring-music-hippest-shaman.cfapps.io</code></p>
 <div class="imageblock">
 <div class="content">
-<img src="../../../Common/images/Spring_Music_NS.png" alt="Spring Music NS">
+<img src="../../../Common/images/Spring_Music_NS.png" alt="Spring Music NS.png">
 </div>
 </div>
 <div class="paragraph">
-<p>Be sure to click on the ``information icon'' in the top right-hand corner of the UI.
+<p>Be sure to click on the information icon <code>i</code> in the top right-hand corner of the UI.
 This gives you important information about the state of the currently running <em>Spring Music</em> instance, including what Spring Profiles are turned on and what Cloud Foundry services are bound.
-It will become important in the next lab!</p>
+It will become important as we move on to the next lab!</p>
 </div>
 </li>
 </ol>
 </div>
 </div>
 </div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2016-07-28 12:36:36 CEST
-</div>
-</div>
-</body>
-</html>
+        </div>
+      </div>
+    </body>
+  </html>

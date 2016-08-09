@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.4">
-<title>Lab 12 - Build a Product Review Service with MongoDB</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
-<style>
-/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>lab_12.adoc</title>
+      <style>
+        #wrapper {width: 960px; margin: 0 auto;}
+        /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 /* Remove comment around @import statement below when using as a custom stylesheet */
 /*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
@@ -415,17 +411,38 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .print-only{display:block!important}
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
-</style>
-</head>
-<body class="article">
-<div id="header">
-<h1>Lab 12 - Build a Product Review Service with MongoDB</h1>
-</div>
-<div id="content">
+
+      </style>
+      <link href='https://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/asciidoc.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/yaml.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/dockerfile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/makefile.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/rust.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/haskell.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/typescript.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scss.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/less.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/handlebars.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/groovy.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/scala.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/bash.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/ini.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+      <div id="wrapper">
+        <div class="article">
+          <h1>Lab 12 - Build a Product Review Service with MongoDB</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="quoteblock abstract">
-<blockquote>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>In this lab we&#8217;ll begin the second subproject of our complete cloud-native application architecture: <em>SpringBox</em>, which implements the movie browsing portion of a &#8220;Redbox-like&#8221; website.
 This microservice will provide the <em>Movie Review Service</em>, which will allow us to create and browse reviews for movies.</p>
@@ -433,13 +450,13 @@ This microservice will provide the <em>Movie Review Service</em>, which will all
 <div class="paragraph">
 <p>We&#8217;re still using the <a href="http://grouplens.org/datasets/movielens/">MovieLens</a> dataset, and here we&#8217;ll link back to movies in the dataset by their <code>mlId</code> or &#8220;MovieLens ID.&#8221;</p>
 </div>
-</blockquote>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 The completed code for this lab can be found at <code>$COURSE_HOME/day_01/session_04/lab_12/complete/springbox-reviews</code>.
@@ -447,6 +464,14 @@ The completed code for this lab can be found at <code>$COURSE_HOME/day_01/sessio
 </tr>
 </table>
 </div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_developing_the_service">Developing the Service</a></li>
+<li><a href="#_preparing_for_cloud_foundry">Preparing for Cloud Foundry</a></li>
+<li><a href="#_deploying_to_cloud_foundry">Deploying to Cloud Foundry</a></li>
+</ul>
 </div>
 </div>
 <div class="sect1">
@@ -469,7 +494,7 @@ The completed code for this lab can be found at <code>$COURSE_HOME/day_01/sessio
 <p>Create the package <code>io.springbox.reviews.domain</code> and in that package create the class <code>Review</code>. Into that file you can paste the following source code:</p>
 <div class="listingblock">
 <div class="content">
-<pre>public class Review {
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">public class Review {
     @Id
     private String id;
 
@@ -532,7 +557,7 @@ The completed code for this lab can be found at <code>$COURSE_HOME/day_01/sessio
     public void setRating(int rating) {
         this.rating = rating;
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -540,9 +565,9 @@ The completed code for this lab can be found at <code>$COURSE_HOME/day_01/sessio
 <p>Create the package <code>io.springbox.reviews.repositories</code> and in that package create the interface <code>ReviewRepository</code>. Into that file you can paste the following source code:</p>
 <div class="listingblock">
 <div class="content">
-<pre>public interface ReviewRepository extends MongoRepository&lt;Review, String&gt; {
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">public interface ReviewRepository extends MongoRepository&lt;Review, String&gt; {
     Iterable&lt;Review&gt; findByMlId(String mlId);
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -550,7 +575,7 @@ The completed code for this lab can be found at <code>$COURSE_HOME/day_01/sessio
 <p>Create the package <code>io.springbox.reviews.controllers</code> and in that package create the interface <code>ReviewController</code>. Into that file you can paste the following source code:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@RestController
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@RestController
 public class ReviewController {
 
     @Autowired
@@ -571,7 +596,7 @@ public class ReviewController {
         reviewRepository.save(review);
         return new ResponseEntity&lt;&gt;(review, HttpStatus.CREATED);
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -579,14 +604,14 @@ public class ReviewController {
 <p>Add the <code>@EnableMongoRepositories</code> annotation to <code>io.springbox.reviews.SpringboxReviewsApplication</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre>@SpringBootApplication
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@SpringBootApplication
 @EnableMongoRepositories // &lt;--- Add this!
 public class SpringboxReviewsApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringboxReviewsApplication.class, args);
     }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </li>
@@ -594,7 +619,7 @@ public class SpringboxReviewsApplication {
 <p>Add the following to <code>application.properties</code>&#8201;&#8212;&#8201;we&#8217;ll eventually want to run multiple apps locally, so we need to change the port:</p>
 <div class="listingblock">
 <div class="content">
-<pre>server.port=8081</pre>
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">server.port=8081</code></pre>
 </div>
 </div>
 </li>
@@ -632,7 +657,7 @@ If run locally with the default setup, the application will automatically discov
 <p>Access the application using <code>curl</code> to make sure everything is working properly:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl -i localhost:8081/reviews/1
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -i localhost:8081/reviews/1
 HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Date: Mon, 16 Feb 2015 22:53:26 GMT
@@ -649,7 +674,7 @@ X-Application-Context: application:8081
         "title": "Toy Story (1995)",
         "userName": "mstine"
     }
-]</pre>
+]</code></pre>
 </div>
 </div>
 </li>
@@ -676,14 +701,14 @@ OK</pre>
 <p>Add the appropriate dependencies for the Spring Cloud Connectors:</p>
 <div class="listingblock">
 <div class="content">
-<pre>&lt;dependency&gt;
+<pre class="highlightjs highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
   &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
   &lt;artifactId&gt;spring-cloud-cloudfoundry-connector&lt;/artifactId&gt;
 &lt;/dependency&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
   &lt;artifactId&gt;spring-cloud-spring-service-connector&lt;/artifactId&gt;
-&lt;/dependency&gt;</pre>
+&lt;/dependency&gt;</code></pre>
 </div>
 </div>
 </li>
@@ -708,7 +733,7 @@ OK</pre>
 <p>Create an application manifest in <code>manifest.yml</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yml" data-lang="yml">---
+<pre class="highlightjs highlight"><code class="language-yml" data-lang="yml">---
 applications:
 - name: springbox-reviews
   host: springbox-reviews-${random-word}
@@ -754,7 +779,7 @@ last uploaded: Mon Feb 16 23:04:42 UTC 2015
 <p>Access the application using <code>curl</code> to make sure everything is working properly:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl -i springbox-reviews-understaffed-nickeltype.cfapps.io/reviews/1
+<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -i springbox-reviews-understaffed-nickeltype.cfapps.io/reviews/1
 HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Date: Mon, 16 Feb 2015 22:53:26 GMT
@@ -771,7 +796,7 @@ X-Application-Context: application:8081
         "title": "Toy Story (1995)",
         "userName": "mstine"
     }
-]</pre>
+]</code></pre>
 </div>
 </div>
 </li>
@@ -779,11 +804,7 @@ X-Application-Context: application:8081
 </div>
 </div>
 </div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2016-07-28 12:36:36 CEST
-</div>
-</div>
-</body>
-</html>
+        </div>
+      </div>
+    </body>
+  </html>
