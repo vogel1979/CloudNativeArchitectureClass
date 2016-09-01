@@ -28,7 +28,7 @@ Spring Boot Version 1.4.0
 * Stream Rabbit, Web
 
 . Click the *Generate Project* button. Your browser will download a zip file.
-Unpack that zip file at `$COURSE_HOME/day_05/session_01/lab_01/initial`.
+Unpack that zip file at `$COURSE_HOME/day_01/session_04/lab_14/initial`.
 
 . Import the project's `pom.xml` into your editor/IDE of choice.
 
@@ -50,7 +50,7 @@ Spring Boot Version 1.4.0
 * Stream Rabbit, Web
 
 . Click the *Generate Project* button. Your browser will download a zip file.
-Unpack that zip file at `$COURSE_HOME/day_05/session_01/lab_01/initial`.
+Unpack that zip file at `$COURSE_HOME/day_01/session_05/lab_14/initial`.
 
 . Import the project's `pom.xml` into your editor/IDE of choice.
 
