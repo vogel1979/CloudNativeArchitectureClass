@@ -56,3 +56,8 @@ https://github.com/spring-cloud-samples/springbox-cloud
 ** link:day_01/session_04/lab_13/lab_13.html[Lab 13 - Build a Product Recommendation Service with Neo4J]
 * Session 5
 ** link:day_01/session_05/lab_14/lab_14.html[Lab 14 - Getting Started with Spring Cloud Stream]
+
+=== Day Two
+* Session 6
+** link:day_02/session_06/lab_15/lab_15.html[Lab 15 -  Deploying and Using Spring Cloud Config Server]
+** link:day_02/session_06/lab_16/lab_16.html[Lab 16 -  Leveraging Eureka for Service Discovery via Spring Cloud Netflix]

@@ -1,7 +1,7 @@
   <html>
     <head>
       <meta charset="utf-8">
-      <title>lab_15.adoc</title>
+      <title>lab_16.adoc</title>
       <style>
         #wrapper {width: 960px; margin: 0 auto;}
         /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -438,15 +438,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
     <body>
       <div id="wrapper">
         <div class="article">
-          <h1>Lab 15 - Deploying and Using Spring Cloud Config Server</h1>
+          <h1>Lab 16 - Leveraging Eureka for Service Discovery via Spring Cloud Netflix</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="openblock">
-<div class="content">
+<div class="quoteblock abstract">
+<blockquote>
 <div class="paragraph">
-<p>Now we&#8217;ll begin using the components found in Spring Cloud to implement patterns for distributed systems.
-We&#8217;ll being using Spring Cloud Config to centralize configuration for applications.
-Our configuration will be stored in a GitHub repository, and served to our applications using the Spring Cloud Config Server.</p>
+<p>Let&#8217;s continue learning the components found in Spring Cloud to implement patterns for distributed systems.
+We&#8217;ll use Spring Cloud Netflix to deploy Eureka, which is a component offering service registration and discovery.</p>
 </div>
 <div class="paragraph">
 <p>In this lab, we&#8217;ll do the following:</p>
@@ -454,35 +453,35 @@ Our configuration will be stored in a GitHub repository, and served to our appli
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create a GitHub repository to store our configuration</p>
+<p>Create a Eureka server</p>
 </li>
 <li>
-<p>Create a Spring Cloud Config Server and test it with a basic sample application</p>
+<p>Create two applications, a &#8220;producer&#8221; and a &#8220;consumer,&#8221; wire them up using Eureka, and test them.</p>
 </li>
 <li>
-<p>Deploy the Config Server to Pivotal Cloud Foundry</p>
+<p>Deploy the Eureka server to Pivotal Cloud Foundry</p>
 </li>
 <li>
-<p>Update our previously developed microservices to source their configuration from the Config Server</p>
+<p>Update our previously developed microservices to register themselves with Eureka</p>
 </li>
 </ol>
 </div>
-</div>
+</blockquote>
 </div>
 </div>
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_create_a_github_repository_to_store_configuration">Create a GitHub repository to Store Configuration</a></li>
-<li><a href="#_create_a_spring_cloud_config_server">Create a Spring Cloud Config Server</a></li>
-<li><a href="#_create_the_sample_test_application">Create the Sample Test Application</a></li>
-<li><a href="#_update_the_configuration_and_reload">Update the configuration and reload</a></li>
-<li><a href="#_configure_and_use_the_pivotal_cloud_foundry_config_server_marketplace_service">Configure and Use the Pivotal Cloud Foundry Config Server Marketplace Service</a></li>
+<li><a href="#_creating_a_eureka_server">Creating a Eureka Server</a></li>
+<li><a href="#_create_and_register_the_producer_service">Create and Register the Producer Service</a></li>
+<li><a href="#_create_and_register_the_consumer_service">Create and Register the Consumer Service</a></li>
+<li><a href="#_deploy_the_eureka_server_to_cloud_foundry">Deploy the Eureka Server to Cloud Foundry</a></li>
+<li><a href="#_update_the_microservices_to_use_eureka">Update the Microservices to Use Eureka</a></li>
 </ul>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_create_a_github_repository_to_store_configuration">Create a GitHub repository to Store Configuration</h2>
+<h2 id="_creating_a_eureka_server">Creating a Eureka Server</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -490,193 +489,113 @@ Our configuration will be stored in a GitHub repository, and served to our appli
 <p>Change to the lab directory:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ cd $COURSE_HOME/day_02/session_05/lab_15/initial</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Create a directory for the configuration repo:</p>
-<div class="listingblock">
-<div class="content">
-<pre>$ mkdir config-repo &amp;&amp; cd config-repo</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Initialize the Git repository:</p>
-<div class="listingblock">
-<div class="content">
-<pre>$ git init</pre>
-</div>
-</div>
-</li>
-<li>
-<p>In the repo, create the file <code>demo.yml</code>, and into that file paste the following:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yml" data-lang="yml">greeting: Ohai</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Stage your changes and commit them:</p>
-<div class="listingblock">
-<div class="content">
-<pre>git add . &amp;&amp; git commit -m "initial commit"</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Make sure you&#8217;re logged in to your GitHub account, and create a new repository:</p>
-<div class="imageblock">
-<div class="content">
-<img src="../../../Common/images/github_1.png" alt="github 1.png">
-</div>
-</div>
-</li>
-<li>
-<p>Give the repo a name and description, and then click ``Create repository'':</p>
-<div class="imageblock">
-<div class="content">
-<img src="../../../Common/images/github_2.png" alt="github 2.png">
-</div>
-</div>
-</li>
-<li>
-<p>Paste the commands from ``&#8230;&#8203;push an existing repository&#8230;&#8203;'' to the command prompt and execute them:</p>
-<div class="imageblock">
-<div class="content">
-<img src="../../../Common/images/github_3.png" alt="github 3.png">
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ git remote add origin https://github.com/mstine/springbox-config-repo.git
-$ git push -u origin master
-Counting objects: 3, done.
-Writing objects: 100% (3/3), 229 bytes | 0 bytes/s, done.
-Total 3 (delta 0), reused 0 (delta 0)
-To https://github.com/mstine/springbox-config-repo.git
- * [new branch]      master -&gt; master
-Branch master set up to track remote branch master from origin.</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Refresh the browser to see your pushed changes:</p>
-<div class="imageblock">
-<div class="content">
-<img src="../../../Common/images/github_4.png" alt="github 4.png">
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_create_a_spring_cloud_config_server">Create a Spring Cloud Config Server</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>On <a href="https://start.spring.io" class="bare">https://start.spring.io</a> create a new Config Server</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Group</dt>
-<dd>
-<p><code>io.springbox</code></p>
-</dd>
-<dt class="hdlist1">Artifact</dt>
-<dd>
-<p><code>springbox-config-server</code></p>
-</dd>
-<dt class="hdlist1">Name</dt>
-<dd>
-<p><code>springbox-config-server</code></p>
-</dd>
-<dt class="hdlist1">Description</dt>
-<dd>
-<p><code>SpringBox Config Server</code></p>
-</dd>
-<dt class="hdlist1">Package Name</dt>
-<dd>
-<p><code>io.springbox.configserver</code></p>
-</dd>
-<dt class="hdlist1">Type</dt>
-<dd>
-<p>Maven Project</p>
-</dd>
-<dt class="hdlist1">Packaging</dt>
-<dd>
-<p>Jar</p>
-</dd>
-<dt class="hdlist1">Java Version</dt>
-<dd>
-<p>1.8</p>
-</dd>
-<dt class="hdlist1">Language</dt>
-<dd>
-<p>Java</p>
-</dd>
-<dt class="hdlist1">Spring Boot Version</dt>
-<dd>
-<p>1.4.0</p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>In the <strong>Project dependencies</strong> section, check the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Config-Server</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>or use the one provided in <code>$COURSE_HOME/day_02/session_05/lab_15/initial</code></p>
-</div>
-<div class="paragraph">
-<p>+</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ cd $COURSE_HOME/day_02/session_05/lab_15/initial/springbox-config-server</pre>
+<pre>$ cd $COURSE_HOME/day_02/session_06/lab_16/initial/springbox-eureka</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>+
-and import the project (via <code>pom.xml</code>) into your IDE of choice.</p>
+<p>and import the project (via <code>pom.xml</code>) into your IDE of choice.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
-<p>Now open <code>io.springbox.configserver.SpringboxConfigServerApplication</code> and add the <code>@EnableConfigServer</code> annotation:</p>
+<p>Open <code>pom.xml</code>, change the parent POM to the <code>spring-cloud-starter-parent</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@SpringBootApplication
-@EnableConfigServer  // &lt;--- ADD THIS!
-public class SpringboxConfigServerApplication {
+<pre>&lt;parent&gt;
+  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-cloud-starter-parent&lt;/artifactId&gt;
+  &lt;version&gt;1.0.1.RELEASE&lt;/version&gt;
+  &lt;relativePath/&gt;
+  &lt;!-- lookup parent from repository --&gt;
+&lt;/parent&gt;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the following repository to resolve the <code>1.0.1.RELEASE</code> artifacts:</p>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;repositories&gt;
+    &lt;repository&gt;
+        &lt;id&gt;spring-release&lt;/id&gt;
+        &lt;name&gt;Spring Release&lt;/name&gt;
+        &lt;url&gt;https://repo.spring.io/release/&lt;/url&gt;
+        &lt;snapshots&gt;
+            &lt;enabled&gt;true&lt;/enabled&gt;
+        &lt;/snapshots&gt;
+    &lt;/repository&gt;
+&lt;/repositories&gt;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add a dependency on <code>spring-cloud-starter-eureka-server</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-cloud-starter-eureka-server&lt;/artifactId&gt;
+&lt;/dependency&gt;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Also, update the <code>spring-boot-maven-plugin</code> configuration to indicate that jars containing JAX-RS resources should be unpacked:</p>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;plugin&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+  &lt;configuration&gt;
+    &lt;requiresUnpack&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;com.netflix.eureka&lt;/groupId&gt;
+        &lt;artifactId&gt;eureka-core&lt;/artifactId&gt;
+      &lt;/dependency&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;com.netflix.eureka&lt;/groupId&gt;
+        &lt;artifactId&gt;eureka-client&lt;/artifactId&gt;
+      &lt;/dependency&gt;
+    &lt;/requiresUnpack&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>In <code>io.springbox.eureka.SpringboxEurekaApplication</code>, add the <code>@EnableEurekaServer</code> annotation:</p>
+<div class="listingblock">
+<div class="content">
+<pre>@SpringBootApplication
+@EnableEurekaServer    // &lt;-- ADD THIS!
+public class SpringboxEurekaApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringboxConfigServerApplication.class, args);
+        SpringApplication.run(SpringboxEurekaApplication.class, args);
     }
-}</code></pre>
+}</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Next, open <code>src/main/resources/application.properties</code> and paste the following code (be sure to replace the Git URI with the one you created in this lab!):</p>
+<p>Rename <code>src/main/resources/application.properties</code> to <code>src/main/resources/application.yml</code>, and paste in the following source:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yml" data-lang="yml">server.port:8888
-spring.cloud.config.server.git.uri: https://github.com/mstine/springbox-config-repo.git</code></pre>
+<pre>server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Build the JAR:</p>
+<p>Build the application:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ mvn package</pre>
@@ -687,145 +606,149 @@ spring.cloud.config.server.git.uri: https://github.com/mstine/springbox-config-r
 <p>Run the application:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ java -jar target/springbox-config-server-0.0.1-SNAPSHOT.jar</pre>
+<pre>$ java -jar target/springbox-eureka-0.0.1-SNAPSHOT.jar</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Test the application with <code>curl</code> to make sure everything is working properly:</p>
-<div class="listingblock">
+<p>In a browser, visit <a href="http://localhost:8761" class="bare">http://localhost:8761</a> and verify that everything is working properly:</p>
+<div class="imageblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -i localhost:8888/demo/default
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-Date: Wed, 18 Feb 2015 18:04:42 GMT
-Server: Apache-Coyote/1.1
-Transfer-Encoding: chunked
-X-Application-Context: bootstrap:8888
-
-{
-    "label": "",
-    "name": "default",
-    "propertySources": [
-        {
-            "name": "https://github.com/mstine/springbox-config-repo.git/demo.yml",
-            "source": {
-                "greeting": "Ohai"
-            }
-        }
-    ]
-}</code></pre>
+<img src="../../../Common/images/eureka_1.png" alt="eureka 1.png">
 </div>
 </div>
 </li>
 </ol>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Make sure you keep this application running as we will need it in the next step.
-</td>
-</tr>
-</table>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_create_the_sample_test_application">Create the Sample Test Application</h2>
+<h2 id="_create_and_register_the_producer_service">Create and Register the Producer Service</h2>
 <div class="sectionbody">
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Group</dt>
-<dd>
-<p><code>io.springbox</code></p>
-</dd>
-<dt class="hdlist1">Artifact</dt>
-<dd>
-<p><code>springbox-config-client</code></p>
-</dd>
-<dt class="hdlist1">Name</dt>
-<dd>
-<p><code>springbox-config-client</code></p>
-</dd>
-<dt class="hdlist1">Description</dt>
-<dd>
-<p><code>SpringBox Config Client</code></p>
-</dd>
-<dt class="hdlist1">Package Name</dt>
-<dd>
-<p><code>io.springbox.configclient</code></p>
-</dd>
-<dt class="hdlist1">Type</dt>
-<dd>
-<p>Maven Project</p>
-</dd>
-<dt class="hdlist1">Packaging</dt>
-<dd>
-<p>Jar</p>
-</dd>
-<dt class="hdlist1">Java Version</dt>
-<dd>
-<p>1.8</p>
-</dd>
-<dt class="hdlist1">Language</dt>
-<dd>
-<p>Java</p>
-</dd>
-<dt class="hdlist1">Spring Boot Version</dt>
-<dd>
-<p>1.4.0</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>In the <strong>Project dependencies</strong> section, check the following:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Web</p>
-</li>
-<li>
-<p>Actuator</p>
-</li>
-<li>
-<p>Config-Client</p>
-</li>
-</ul>
+<p>Change to the lab directory:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ cd $COURSE_HOME/day_02/session_06/lab_16/initial/springbox-producer</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and import the project (via <code>pom.xml</code>) into your IDE of choice.</p>
 </div>
 </li>
 <li>
-<p>In the package <code>io.springbox.configclient</code> create the class <code>GreetingController</code>, and into that class paste the following source code:</p>
+<p>Open <code>pom.xml</code>, change the parent POM to the <code>spring-cloud-starter-parent</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java" data-lang="java">@RefreshScope
-@RestController
-public class GreetingController {
+<pre>&lt;parent&gt;
+  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-cloud-starter-parent&lt;/artifactId&gt;
+  &lt;version&gt;1.0.1.RELEASE&lt;/version&gt;
+  &lt;relativePath/&gt;
+  &lt;!-- lookup parent from repository --&gt;
+&lt;/parent&gt;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add a dependency on <code>spring-cloud-starter</code> and <code>spring-cloud-starter-eureka</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-cloud-starter&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-cloud-starter-eureka&lt;/artifactId&gt;
+&lt;/dependency&gt;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>In the package <code>io.springbox.producer</code>, create the class <code>ProducerController</code>.
+Into that class paste the following code:</p>
+<div class="listingblock">
+<div class="content">
+<pre>@RestController
+public class ProducerController {
 
-    @Value("${greeting}")
-    String greeting;
+    private Log log = LogFactory.getLog(ProducerController.class);
+    private AtomicInteger counter = new AtomicInteger(0);
 
-    @RequestMapping("/")
-    public String greeter() {
-        return greeting + " World!";
+    @RequestMapping(value = "/", produces = "application/json")
+    public String produce() {
+        int value = counter.getAndIncrement();
+        log.info("Produced a value: " + value);
+
+        return String.format("{\"value\":%d}", value);
     }
 
-}</code></pre>
+}</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Create the file <code>src/main/resources/bootstrap.properties</code> and into that file paste the following:</p>
+<p>Now open <code>io.springbox.producer.SpringboxProducerApplication</code> and add the <code>@EnableDiscoveryClient</code> annotation:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java" data-lang="java">spring.application.name=demo</code></pre>
+<pre>@SpringBootApplication
+@EnableDiscoveryClient  // &lt;--- ADD THIS!
+public class SpringboxProducerApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringboxProducerApplication.class, args);
+    }
+}</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Build the JAR:</p>
+<p>Create the file <code>src/main/resources/bootstrap.yml</code> and paste in the following source:</p>
+<div class="listingblock">
+<div class="content">
+<pre>spring:
+  application:
+    name: producer</pre>
+</div>
+</div>
+</li>
+<li>
+<p>We&#8217;ll use our Config Server to consistently configure the Eureka Client across all of our applications.
+In your config repo, open <code>application.yml</code> and add the following:</p>
+<div class="listingblock">
+<div class="content">
+<pre>eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    metadataMap:
+      instanceId: ${vcap.application.instance_id:${spring.application.name}:${server.port:8080}}</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Stage, commit, and push your changes:</p>
+<div class="listingblock">
+<div class="content">
+<pre>git add . &amp;&amp; git commit -m "swap greeting" &amp;&amp; git push origin master</pre>
+</div>
+</div>
+</li>
+<li>
+<p>A completed <code>springbox-config-server</code> project has been placed in <code>$COURSE_HOME/day_02/session_06/lab_15/initial/springbox-config-server</code> for your convenience.
+In a different terminal window, change to that directory, rebuild, and run the application:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ cd $COURSE_HOME/day_02/session_06/lab_16/initial/springbox-config-server
+$ mvn package
+$ java -jar target/springbox-config-server-0.0.1-SNAPSHOT.jar</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now build the producer application:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ mvn package</pre>
@@ -833,149 +756,436 @@ public class GreetingController {
 </div>
 </li>
 <li>
-<p>Run the application:</p>
+<p>And run the producer application:</p>
 <div class="listingblock">
 <div class="content">
-<pre>$ java -jar target/springbox-config-client-0.0.1-SNAPSHOT.jar</pre>
+<pre>$ java -jar target/springbox-producer-0.0.1-SNAPSHOT.jar</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Test the application with <code>curl</code> to make sure everything is working properly:</p>
+<p>Ten seconds after the producer application finishes startup, you should see it log its registration with Eureka:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -i localhost:8080
-HTTP/1.1 200 OK
-Content-Length: 12
-Content-Type: text/plain;charset=UTF-8
-Date: Wed, 18 Feb 2015 18:48:24 GMT
-Server: Apache-Coyote/1.1
-X-Application-Context: demo
+<pre>2015-02-18 22:56:00.226  INFO 42160 --- [pool-4-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PRODUCER/turkey:producer:8080 - Re-registering apps/PRODUCER
+2015-02-18 22:56:00.227  INFO 42160 --- [pool-4-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PRODUCER/turkey:producer:8080: registering service...
+2015-02-18 22:56:00.274  INFO 42160 --- [pool-4-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PRODUCER/turkey:producer:8080 - registration status: 204</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should also be able to refresh <a href="http://localhost:8761" class="bare">http://localhost:8761</a> in the browser and see the producer registered:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../Common/images/eureka_2.png" alt="eureka 2.png">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_and_register_the_consumer_service">Create and Register the Consumer Service</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Change to the lab directory:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ cd $COURSE_HOME/day_02/session_06/lab_16/initial/springbox-consumer</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and import the project (via <code>pom.xml</code>) into your IDE of choice.</p>
+</div>
+</li>
+<li>
+<p>Open <code>pom.xml</code>, change the parent POM to the <code>spring-cloud-starter-parent</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;parent&gt;
+  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-cloud-starter-parent&lt;/artifactId&gt;
+  &lt;version&gt;1.0.1.RELEASE&lt;/version&gt;
+  &lt;relativePath/&gt;
+  &lt;!-- lookup parent from repository --&gt;
+&lt;/parent&gt;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add a dependency on <code>spring-cloud-starter</code> and <code>spring-cloud-starter-eureka</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-cloud-starter&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-cloud-starter-eureka&lt;/artifactId&gt;
+&lt;/dependency&gt;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>In the package <code>io.springbox.consumer</code>, create the class <code>ProducerResponse</code>, and into that class paste the following code:</p>
+<div class="listingblock">
+<div class="content">
+<pre>public class ProducerResponse {
+    private int value;
 
-Ohai World!</code></pre>
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
+}</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Also, take a look at the Spring Environment to see how the <code>greeting</code> property is being resolved:</p>
+<p>Also in the package <code>io.springbox.consumer</code>, create the class <code>ConsumerController</code>, and into that class paste the following code:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -i localhost:8080/env
-HTTP/1.1 200 OKContent-Type: application/json;charset=UTF-8Date: Wed, 18 Feb 2015 18:49:25 GMTServer: Apache-Coyote/1.1
-Transfer-Encoding: chunked
-X-Application-Context: demo
+<pre>@RestController
+public class ConsumerController {
+
+    @Autowired
+    DiscoveryClient discoveryClient;
+
+    @RequestMapping(value = "/", produces = "application/json")
+    String consume() {
+        InstanceInfo instance = discoveryClient.getNextServerFromEureka("PRODUCER", false);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ProducerResponse response = restTemplate.getForObject(instance.getHomePageUrl(), ProducerResponse.class);
+
+        return String.format("{\"value\":%d}", response.getValue());
+    }
+
+}</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now open <code>io.springbox.producer.SpringboxConsumerrApplication</code> and add the <code>@EnableDiscoveryClient</code> annotation:</p>
+<div class="listingblock">
+<div class="content">
+<pre>@SpringBootApplication
+@EnableDiscoveryClient  // &lt;--- ADD THIS!
+public class SpringboxConsumerApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringboxConsumerApplication.class, args);
+    }
+}</pre>
+</div>
+</div>
+</li>
+<li>
+<p>In <code>src/main/resources/application.properties</code>, set the <code>server.port</code> property:</p>
+<div class="listingblock">
+<div class="content">
+<pre>server.port=8081</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the file <code>src/main/resources/bootstrap.yml</code> and paste in the following source:</p>
+<div class="listingblock">
+<div class="content">
+<pre>spring:
+  application:
+    name: consumer</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now build the consumer application:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ mvn package</pre>
+</div>
+</div>
+</li>
+<li>
+<p>And run the consumer application:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ java -jar target/springbox-consumer-0.0.1-SNAPSHOT.jar</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Ten seconds after the consumer application finishes startup, you should see it log its registration with Eureka:</p>
+<div class="listingblock">
+<div class="content">
+<pre>2015-02-18 23:29:55.703  INFO 45265 --- [pool-4-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_CONSUMER/turkey:consumer:8081 - Re-registering apps/CONSUMER
+2015-02-18 23:29:55.703  INFO 45265 --- [pool-4-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_CONSUMER/turkey:consumer:8081: registering service...
+2015-02-18 23:29:55.729  INFO 45265 --- [pool-4-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_CONSUMER/turkey:consumer:8081 - registration status: 204</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should also be able to refresh <a href="http://localhost:8761" class="bare">http://localhost:8761</a> in the browser and see the producer registered:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../Common/images/eureka_3.png" alt="eureka 3.png">
+</div>
+</div>
+</li>
+<li>
+<p>Using <code>curl</code>, test the consumer application and show that it is receiving values from the producer:</p>
+<div class="listingblock">
+<div class="content">
+<pre>curl -i localhost:8081
+HTTP/1.1 200 OK
+Content-Length: 11
+Content-Type: application/json;charset=UTF-8Date: Thu, 19 Feb 2015 07:32:21 GMT
+Server: Apache-Coyote/1.1
+X-Application-Context: consumer:8081
 
 {
-    "applicationConfig: [classpath:/bootstrap.properties]": {
-        "spring.application.name": "demo"
-    },
-    "configService:https://github.com/mstine/springbox-config-repo.git/demo.yml": {
-        "greeting": "Ohai"
-    },
+    "value": 0
+}</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploy_the_eureka_server_to_cloud_foundry">Deploy the Eureka Server to Cloud Foundry</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create an application manifest in <code>manifest.yml</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yml" data-lang="yml">---
+applications:
+- name: springbox-eureka
+  host: springbox-eureka-${random-word}
+  memory: 512M
+  instances: 1
+  path: target/springbox-eureka-0.0.1-SNAPSHOT.jar</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Push to Cloud Foundry:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ cf push
 
 ...
 
-}</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</dd>
-</dl>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_update_the_configuration_and_reload">Update the configuration and reload</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Update the configuration</p>
-</li>
-</ol>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yml" data-lang="yml">greeting: Howdy</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Inside the config-repo, commit the changes you&#8217;ve made.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ git commit -a -m 'changed greeting'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Until now, the configuration has not been changed. To reflect the committed changes, you must need to call the refresh endpoint given by Spring:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ curl -d {} http://localhost:8080/refresh</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you now visit <a href="http://localhost:8080" class="bare">http://localhost:8080</a> and hit refresh, you will see the changed Greeting.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_configure_and_use_the_pivotal_cloud_foundry_config_server_marketplace_service">Configure and Use the Pivotal Cloud Foundry Config Server Marketplace Service</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The Pivotal Cloud Foundry Config Server Marketplace Service implements a managed Config Server Instance. To use it, we&#8217;ll use a prebuilt demo, that you might want to investigate:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Clone the Cook Sample Project</p>
-</li>
-</ol>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ git clone https://github.com/spring-cloud-samples/cook.git</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>and run a maven or gradle build.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ mvn package</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To create an instance of the Config Server, issue the following command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ cf create-service -c '{ "git": { "uri": "https://github.com/spring-cloud-samples/{application}-config", "label": "master"  } }' p-config-server standard config-server</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">Creating service instance config-server in org demo / space development as demouser...
+Showing health and status for app springbox-eureka in org oreilly-class / space instructor as mstine@pivotal.io...
 OK
 
-Create in progress. Use 'cf services' or 'cf service config-server' to check operation status.</code></pre>
+requested state: started
+instances: 1/1
+usage: 512M x 1 instances
+urls: springbox-eureka-blowsy-catechizer.cfapps.io
+last uploaded: Thu Feb 19 07:40:21 UTC 2015
+
+     state     since                    cpu    memory           disk
+#0   running   2015-02-18 11:41:10 PM   0.3%   386.1M of 512M   135.1M of 1G</pre>
 </div>
 </div>
-<div class="paragraph">
-<p>It will take a while to create this instance. As soon as the config-server is started, we can push the application.</p>
+</li>
+<li>
+<p>In a browser, visit the route assigned to your Eureka server and verify that everything is working properly:</p>
+<div class="imageblock">
+<div class="content">
+<img src="../../../Common/images/eureka_1.png" alt="eureka 1.png">
 </div>
+</div>
+</li>
+<li>
+<p>Create a user-provided service representing the Eureka server (be sure to use the route assigned to your Eureka server!):</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">$ cf push</code></pre>
+<pre>$ cf cups springbox-service-registry -p '{"uri":"http://springbox-service-registry-unmaritime-acidification.cfapps.io"}'
+Creating user provided service springbox-service-registry in org oreilly-class / space instructor as mstine@pivotal.io...
+OK</pre>
 </div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_update_the_microservices_to_use_eureka">Update the Microservices to Use Eureka</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the config repo, update the eureka section of application.yml:</p>
+<div class="listingblock">
+<div class="content">
+<pre>eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    metadataMap:
+      instanceId: ${vcap.application.instance_id:${spring.application.name}:${server.port:8080}}
+  client:    # &lt;--- ADD THE CLIENT SECTION!!!
+    serviceUrl:
+      defaultZone: ${vcap.services.springbox-service-registry.credentials.uri:http://127.0.0.1:8761}/eureka/</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Also add a second YAML document to <code>application.yml</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>---
+spring:
+  profiles: cloud
+eureka:
+  instance:
+    hostname: ${vcap.application.uris[0]}
+    nonSecurePort: 80</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Stage, commit, and push your changes:</p>
+<div class="listingblock">
+<div class="content">
+<pre>git add . &amp;&amp; git commit -m "swap greeting" &amp;&amp; git push origin master</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Each of the three microservice projects has been copied into <code>$COURSE_HOME/day_02/session_06/lab_16/initial</code>, and are in the state we left them at the end of <a href="../lab_15/lab_15.adoc">Lab 15</a>.
+You can either continue your existing projects or pickup from these copies.</p>
+</div>
+<div class="paragraph">
+<p>For each project, perform the following steps (we&#8217;ll do these once for the <code>springbox-catalog</code> project in this guide):</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Watch <a href="https://www.youtube.com/watch?v=SFDYdslOvu8" class="bare">https://www.youtube.com/watch?v=SFDYdslOvu8</a> to learn more about this outcome and how it works. Josh is a great presenter and makes it fun to understand.</p>
+<p>Change to the lab directory:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ cd $COURSE_HOME/day_02/session_06/lab_16/initial/springbox-catalog</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and import the project (via <code>pom.xml</code>) into your IDE of choice.</p>
+</div>
+</li>
+<li>
+<p>In <code>pom.xml</code>, add a dependency on <code>spring-cloud-starter-eureka</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-cloud-starter-eureka&lt;/artifactId&gt;
+&lt;/dependency&gt;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now open <code>io.springbox.catalog.SpringboxCatalogApplication</code> and add the <code>@EnableDiscoveryClient</code> annotation:</p>
+<div class="listingblock">
+<div class="content">
+<pre>@SpringBootApplication
+@EnableJpaRepositories
+@EnableDiscoveryClient  // &lt;--- ADD THIS!!!
+public class SpringboxCatalogApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringboxCatalogApplication.class, args);
+    }
+}</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Build the application:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ mvn package</pre>
+</div>
+</div>
+</li>
+<li>
+<p>In <code>manifest.yml</code>, add a binding to <code>springbox-service-registry</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>---
+applications:
+- name: springbox-catalog
+  host: springbox-catalog-${random-word}
+  memory: 512M
+  instances: 1
+  timeout: 90
+  path: target/springbox-catalog-0.0.1-SNAPSHOT.jar
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
+  services:
+    - springbox-catalog-db
+    - springbox-config-service
+    - springbox-cloud-bus-amqp
+    - springbox-service-registry</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Push the application:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ cf push
+
+...
+
+Showing health and status for app springbox-catalog in org oreilly-class / space instructor as mstine@pivotal.io...
+OK
+
+requested state: started
+instances: 1/1
+usage: 512M x 1 instances
+urls: springbox-catalog-overwild-nonrevival.cfapps.io
+last uploaded: Fri Feb 20 02:06:02 UTC 2015
+
+     state     since                    cpu     memory           disk
+#0   running   2015-02-19 06:07:35 PM   81.0%   446.1M of 512M   150.9M of 1G</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Ten seconds after the catalog application finishes startup, you should see it log its registration with Eureka:</p>
+<div class="listingblock">
+<div class="content">
+<pre>2015-02-19T18:07:45.21-0800 [App/0]      OUT 2015-02-20 02:07:45.212  INFO 31 --- [pool-7-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SPRINGBOX-CATALOG/springbox-catalog-overwild-nonrevival.cfapps.io:d458a40215004b2c902c47a157c2a2
+10 - Re-registering apps/SPRINGBOX-CATALOG
+2015-02-19T18:07:45.21-0800 [App/0]      OUT 2015-02-20 02:07:45.212  INFO 31 --- [pool-7-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SPRINGBOX-CATALOG/springbox-catalog-overwild-nonrevival.cfapps.io:d458a40215004b2c902c47a157c2a2
+10: registering service...
+2015-02-19T18:07:45.27-0800 [App/0]      OUT 2015-02-20 02:07:45.277  INFO 31 --- [pool-7-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SPRINGBOX-CATALOG/springbox-catalog-overwild-nonrevival.cfapps.io:d458a40215004b2c902c47a157c2a2
+10 - registration status: 204</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should also be able to refresh the route of your PWS deployed Eureka in the browser and see the catalog registered:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../../Common/images/eureka_4.png" alt="eureka 4.png">
+</div>
+</div>
 </li>
 </ol>
 </div>

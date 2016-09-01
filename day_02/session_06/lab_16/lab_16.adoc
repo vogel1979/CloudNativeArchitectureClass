@@ -19,7 +19,7 @@ In this lab, we'll do the following:
 . Change to the lab directory:
 +
 ----
-$ cd $COURSE_HOME/day_02/session_05/lab_16/initial/springbox-eureka
+$ cd $COURSE_HOME/day_02/session_06/lab_16/initial/springbox-eureka
 ----
 +
 and import the project (via `pom.xml`) into your IDE of choice.
@@ -131,7 +131,7 @@ image::../../../Common/images/eureka_1.png[]
 . Change to the lab directory:
 +
 ----
-$ cd $COURSE_HOME/day_02/session_05/lab_16/initial/springbox-producer
+$ cd $COURSE_HOME/day_02/session_06/lab_16/initial/springbox-producer
 ----
 +
 and import the project (via `pom.xml`) into your IDE of choice.
@@ -220,11 +220,11 @@ eureka:
 git add . && git commit -m "swap greeting" && git push origin master
 ----
 
-. A completed `springbox-config-server` project has been placed in `$COURSE_HOME/day_02/session_05/lab_15/initial/springbox-config-server` for your convenience.
+. A completed `springbox-config-server` project has been placed in `$COURSE_HOME/day_02/session_06/lab_15/initial/springbox-config-server` for your convenience.
 In a different terminal window, change to that directory, rebuild, and run the application:
 +
 ----
-$ cd $COURSE_HOME/day_02/session_05/lab_16/initial/springbox-config-server
+$ cd $COURSE_HOME/day_02/session_06/lab_16/initial/springbox-config-server
 $ mvn package
 $ java -jar target/springbox-config-server-0.0.1-SNAPSHOT.jar
 ----
@@ -258,7 +258,7 @@ image::../../../Common/images/eureka_2.png[]
 . Change to the lab directory:
 +
 ----
-$ cd $COURSE_HOME/day_02/session_05/lab_16/initial/springbox-consumer
+$ cd $COURSE_HOME/day_02/session_06/lab_16/initial/springbox-consumer
 ----
 +
 and import the project (via `pom.xml`) into your IDE of choice.
@@ -472,7 +472,7 @@ eureka:
 git add . && git commit -m "swap greeting" && git push origin master
 ----
 
-Each of the three microservice projects has been copied into `$COURSE_HOME/day_02/session_05/lab_16/initial`, and are in the state we left them at the end of link:../lab_15/lab_15.adoc[Lab 15].
+Each of the three microservice projects has been copied into `$COURSE_HOME/day_02/session_06/lab_16/initial`, and are in the state we left them at the end of link:../lab_15/lab_15.adoc[Lab 15].
 You can either continue your existing projects or pickup from these copies.
 
 For each project, perform the following steps (we'll do these once for the `springbox-catalog` project in this guide):
@@ -480,7 +480,7 @@ For each project, perform the following steps (we'll do these once for the `spri
 . Change to the lab directory:
 +
 ----
-$ cd $COURSE_HOME/day_02/session_05/lab_16/initial/springbox-catalog
+$ cd $COURSE_HOME/day_02/session_06/lab_16/initial/springbox-catalog
 ----
 +
 and import the project (via `pom.xml`) into your IDE of choice.
